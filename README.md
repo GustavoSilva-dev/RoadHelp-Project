@@ -37,10 +37,10 @@ Passo a passo para rodar o projeto localmente:
 
 ```bash
 # Clone o repositório
-git clone https://github.com/seu-usuario/seu-projeto.git
+git clone https://github.com/GustavoSilva-dev/RoadHelp-Project
 
 # Acesse a pasta do projeto
-cd seu-projeto
+cd RoadHelp-Project
 
 # Instale as dependências
 npm install
