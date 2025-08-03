@@ -47,3 +47,21 @@ npm install
 
 # Execute o projeto
 npm start
+
+```
+## 🔄 Como Atualizar o Repositório
+
+``` bash
+# 1. Verifique os arquivos modificados
+git status
+
+# 2. Adicione os arquivos alterados ao stage
+git add nome-do-arquivo
+# ou para adicionar tudo:
+git add .
+
+# 3. Faça o commit das alterações
+git commit -m "Descreva aqui o que foi alterado"
+
+# 4. Envie para o repositório remoto
+git push
