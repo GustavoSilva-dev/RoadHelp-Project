@@ -51,6 +51,8 @@ npm start
 ```
 ## 🔄 Como Atualizar o Repositório
 
+Como atualizar o projeto diretamente no repositório
+
 ``` bash
 # 1. Verifique os arquivos modificados
 git status
@@ -65,3 +67,6 @@ git commit -m "Descreva aqui o que foi alterado"
 
 # 4. Envie para o repositório remoto
 git push
+
+```
+AVISO - Não se esqueça de salvar todos os seus arquivos (Ctrl S) antes de atualizar o repositório
