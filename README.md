@@ -45,8 +45,17 @@ cd RoadHelp-Project
 # Instale as dependências
 npm install
 
-# Execute o projeto
-npm start
+# Abra um terminal para o Back-End
+cd "Projeto FeCEAP - Server"
+
+# Inicialize o Back-End
+node --watch server.js
+
+# Abra outro terminal para o Front-End
+cd Road-Help-Project
+
+# Inicialize o Front-End
+npm run dev
 
 ```
 ## 🔄 Como Atualizar o Repositório
