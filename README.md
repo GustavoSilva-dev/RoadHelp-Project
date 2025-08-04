@@ -9,7 +9,7 @@ Projeto focado na criação de um GPS funcional e interativo, destinado para ve�
 - [Sobre o Projeto](#sobre-o-projeto)
 - [Tecnologias Utilizadas](#tecnologias-utilizadas)
 - [Como Executar](#como-executar)
-- [Contribuição](#contribuição)
+- [Como Atualizar o Repositório](#como-atualizar)
 - [Integrantes](#integrantes)
 - [Licença](#licença)
 
