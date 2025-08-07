@@ -28,6 +28,7 @@ Projeto focado na criação de um GPS funcional e interativo, destinado para ve�
 - [x] React 
 - [x] MongoDB / Prisma Client
 - [x] Git / GitHub
+- [x] Open Street Maps 
 
 ---
 
