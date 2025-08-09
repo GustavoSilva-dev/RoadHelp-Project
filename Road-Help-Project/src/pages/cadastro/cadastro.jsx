@@ -1,9 +1,11 @@
 import styles from "./cadastro.module.css";
 import api from "../../services/api"
 import { useEffect, useState, useRef } from "react";
+import { useNavigate } from "react-router";
 
 function Cadastro() {
-  const [users, setUsers] = useState([])
+  const [users, setUsers] = useState([]);
+  const navigate = useNavigate();
 
   const inputName = useRef();
   const inputEmail = useRef();
@@ -17,6 +19,36 @@ function Cadastro() {
     const usersFromApi = await api.get('/users');
 
     setUsers(usersFromApi.data);
+  }
+  
+  async function enterUser() {
+    await createUsers();
+    
+    const verificador = await api.post('/login', {
+      email: inputEmail.current.value,
+      password: inputPassword.current.value
+    });
+
+    if(!verificador.data.exists || !verificador.data.existsP){
+      console.log("Erro de Entrada Encontrado, tente novamente");
+      return;
+    };
+
+  // GUARDANDO INFORMAÇÕES DO USUÁRIO COM LOCALSTORAGE
+    let token = verificador.data.token
+    let name = verificador.data.name
+    let nameV = verificador.data.v_name
+    let hgt = verificador.data.v_height
+    let wdt = verificador.data.v_width
+    let lgt = verificador.data.v_length
+
+    localStorage.setItem('getToken', token)
+    localStorage.setItem('getName', name)
+    localStorage.setItem('getVName', nameV)
+    localStorage.setItem('getVHeight', hgt)
+    localStorage.setItem('getVWidth', wdt)
+    localStorage.setItem('getVLength', lgt)
+    navigate('/home')
   }
 
   async function createUsers() {
@@ -141,6 +173,8 @@ function Cadastro() {
     }
 
     createUsers()
+    enterUser()
+    return
   }
 
   useEffect(() => {

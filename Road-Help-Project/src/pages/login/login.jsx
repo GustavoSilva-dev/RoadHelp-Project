@@ -2,8 +2,6 @@ import styles from "./login.module.css";
 import { useRef, useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import api from "../../services/api"
-import { redirect } from "react-router";
-
 
 function Login() {
   const navigate = useNavigate()
