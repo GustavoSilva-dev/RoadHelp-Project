@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router";
+import styles from "./home.module.css"
 
 function Home() {
     const navigate = useNavigate()
@@ -12,6 +13,13 @@ function Home() {
             console.log("Usuário cadastrado")
         }
     }, [])
+    
+    useEffect(() => {
+        setTimeout(function () {
+            document.getElementById("welcome").style.opacity = "0";
+            document.getElementById("welcome").style.display = "none";
+        }, 4900);
+    });
 
     function removeAccount() {
         localStorage.removeItem("getToken");
@@ -24,8 +32,19 @@ function Home() {
     }
 
     return (
-        <div className="pattern-container">
-            <h1>Olá {localStorage.getItem("getName")}! Você está logado!</h1>
+        <div className={styles.patternContainer}>
+            <h1 id="welcome" className={styles.welcome}>Olá {localStorage.getItem("getName")}! Tenha ótimas viagens!</h1>
+
+            <div className={styles.map}>
+                *mapa
+            </div>
+
+            <div className={styles.menu}>
+            </div>
+
+            <div className={styles.content}>
+            </div>
+
             <button onClick={removeAccount}>Sair da conta</button>
         </div>
     )
