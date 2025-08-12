@@ -92,3 +92,23 @@ git push
 
 ```
 AVISO - Não se esqueça de salvar todos os seus arquivos (Ctrl S) antes de atualizar o repositório
+
+---
+
+## 🔄 Como Atualizar os Seus Arquivos
+
+Como atualizar o seu projeto localmente, depois de ter ocorrido alterações no repositório
+
+``` bash
+# 1. Verifique se houve mudanças locais, pois pode ocorrer erro, e desfaça essas mudanças
+git reset --hard
+# ou, se precisa manter as mudanças, mantenha-as salvas localmente
+git stash
+
+# 2. Atualize o seu projeto
+git pull
+
+# 3. Se salvou mudanças locais, reaplique essas mudanças por cima
+git stash pop
+
+```
