@@ -84,11 +84,17 @@ git add nome-do-arquivo
 # ou para adicionar tudo:
 git add .
 
+# 3. Insira suas informações de usuário
+git config --global user.name "Seu nome"
+
+# 3.5 Insira suas informações de email
+git config --global user.email "seuemaildogithub@gmail.com"
+
 # 3. Faça o commit das alterações
 git commit -m "Descreva aqui o que foi alterado"
 
 # 4. Envie para o repositório remoto
-git push
+git push origin master
 
 ```
 AVISO - Não se esqueça de salvar todos os seus arquivos (Ctrl S) antes de atualizar o repositório
