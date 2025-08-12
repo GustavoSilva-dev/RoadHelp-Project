@@ -43,17 +43,29 @@ git clone https://github.com/GustavoSilva-dev/RoadHelp-Project
 # Acesse a pasta do projeto
 cd RoadHelp-Project
 
+# Abra um terminal para o Back-End
+cd "Projeto FeCEAP - Server"
+
 # Instale as dependências
 npm install
 
-# Abra um terminal para o Back-End
-cd "Projeto FeCEAP - Server"
+# Instale as dependências do Prisma Client
+npx prisma generate
+
+# Insira as mudanças no .env
+
+# Dê permissão ao seu IP no MongoDB
+
+# Verifique os IPs contidos no api.js (Front-End) e no server.js (Back-End)
 
 # Inicialize o Back-End
 node --watch server.js
 
 # Abra outro terminal para o Front-End
 cd Road-Help-Project
+
+# Instale as dependências
+npm install
 
 # Inicialize o Front-End
 npm run dev

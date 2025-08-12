@@ -1,5 +1,4 @@
 import express from 'express'
-import session from 'express-session'
 import jwt from 'jsonwebtoken'
 import dotenv from 'dotenv'
 import bcrypt from 'bcrypt'
@@ -11,7 +10,7 @@ const prisma = new PrismaClient();
 const app = express();
 
 app.use(express.json());
-app.use(cors('http://192.168.1.242:5173'))
+app.use(cors('http://localhost:5173'))
 
 
 // Registrar usuários
