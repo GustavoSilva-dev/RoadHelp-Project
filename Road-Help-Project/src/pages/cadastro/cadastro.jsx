@@ -71,6 +71,7 @@ function Cadastro() {
       v_width: Number(inputVWidth.current.value),
       v_length: Number(inputVLength.current.value)
     })
+    return;
   }
 
   function verifyFunctions() {
