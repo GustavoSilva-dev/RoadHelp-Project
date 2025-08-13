@@ -13,7 +13,7 @@ function Home() {
             console.log("Usuário cadastrado")
         }
     }, [])
-    
+
     useEffect(() => {
         setTimeout(function () {
             document.getElementById("welcome").style.opacity = "0";
@@ -40,12 +40,13 @@ function Home() {
             </div>
 
             <div className={styles.menu}>
+                <button className={styles.remove} onClick={removeAccount}>Sair da conta</button>
             </div>
 
+           
             <div className={styles.content}>
             </div>
 
-            <button onClick={removeAccount}>Sair da conta</button>
         </div>
     )
 }

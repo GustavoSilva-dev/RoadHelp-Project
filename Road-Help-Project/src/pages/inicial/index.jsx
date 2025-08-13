@@ -30,11 +30,11 @@ function Inicial() {
 
         <div className="botoes-de-entrada">
           <a href="./login">
-            <button>Entrar</button>
+            <button className="button">Entrar</button>
           </a>
 
           <a href="./cadastro">
-            <button id="ultimobotao">Criar uma conta</button>
+            <button className="button" id="ultimobotao">Criar uma conta</button>
           </a>
         </div>
       </div>

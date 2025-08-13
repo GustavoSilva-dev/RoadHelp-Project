@@ -6,24 +6,13 @@ html {
 .patternContainer {
     height: 100vh;
     width: 100vw;
-    display: flex;
-    flex-direction: column;
-    justify-content: start;
-    align-items: center;
-
-    & button {
-        position: fixed;
-        width: 120px;
-        align-self: start;
-        top: 40px;
-        left: 30px;
-        color: black;
-    }
 }
 
 .welcome {
     font-size: 30px;
     position: fixed;
+    text-align: center;
+    justify-self: center;
     z-index: 1;
     text-shadow: 0 2px black,
         0 0 30px black;
@@ -45,6 +34,30 @@ html {
     align-items: center;
 }
 
+.menu {
+    position: fixed;
+    align-self: left;
+    z-index: 1;
+    height: 100vh;
+    width: 300px;
+    background-color: #fff;
+    animation: 0.5s menuApparition ease-in-out;
+}
+
+.remove {
+    position: relative;
+    width: 100%;
+    background-color: #fff;
+    top: 400px;
+    font-size: 20px;
+    height: 40px;
+    color: red;
+    border-top: 1px solid red;
+    border-bottom: 1px solid red;
+    border-left: 0;
+    border-right: 0;
+    text-shadow: 0;
+}
 
 /* ANIMAÇÕES */
 @keyframes welcomeAnimation {
@@ -66,6 +79,16 @@ html {
     99% {
         margin-top: -100px;
         opacity: 0;
+    }
+}
+
+@keyframes menuApparition {
+    from {
+        left: -300px;
+    }
+
+    to {
+        left: 0;
     }
 }
 
