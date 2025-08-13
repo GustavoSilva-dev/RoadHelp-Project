@@ -52,16 +52,6 @@ function Cadastro() {
   }
 
   async function createUsers() {
-    console.log({
-      email: inputEmail.current.value,
-      name: inputName.current.value,
-      password: inputPassword.current.value,
-      v_name: inputVName.current.value,
-      v_height: inputVHeight.current.value,
-      v_width: inputVWidth.current.value,
-      v_length: inputVLength.current.value
-    })
-
     await api.post('/users', {
       email: inputEmail.current.value,
       name: inputName.current.value,
@@ -173,7 +163,7 @@ function Cadastro() {
       return;
     }
 
-    createUsers()
+    
     enterUser()
     return
   }
