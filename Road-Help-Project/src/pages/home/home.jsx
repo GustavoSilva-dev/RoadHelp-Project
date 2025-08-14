@@ -1,6 +1,8 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router";
 import styles from "./home.module.css"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowDown } from '@fortawesome/free-solid-svg-icons';
 
 function Home() {
     const navigate = useNavigate()
@@ -40,6 +42,10 @@ function Home() {
             </div>
 
             <div className={styles.menu}>
+                <button className={styles.showVehicle}>Informações do Veículo 
+                <FontAwesomeIcon icon={faArrowDown} className={styles.setaIcon}/>
+                </button>
+                
                 <button className={styles.remove} onClick={removeAccount}>Sair da conta</button>
             </div>
 
