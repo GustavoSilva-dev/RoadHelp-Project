@@ -45,11 +45,11 @@ html {
 }
 
 .remove {
-    position: relative;
+    position: absolute;
     cursor: pointer;
     width: 100%;
     background-color: #fff;
-    top: 400px;
+    top: 70%;
     font-size: 20px;
     height: 40px;
     color: red;
@@ -70,6 +70,7 @@ html {
 
 .showVehicle {
     position: relative;
+    z-index: 2;
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -83,13 +84,61 @@ html {
     color: black;
     font-weight: 600;
     font-size: 16px;
-    transition: 0.3s;
+    transition: 0.5s;
 }
 
-.showVehicle:hover {
-    font-size: 17px;
+
+.showVehicle:active {
+    transition: 0.1s;
+    font-size: 15px;
 }
 
+.vehicleInformations {
+    display: none;
+    flex-direction: column;
+    align-items: left;
+    justify-content: center;
+    position: relative;
+    z-index: 1;
+    height: 175px;
+    background-color: #eaeaea;
+    gap: 15px;
+    top: 100px;
+    animation: vehicleAnimation 0.5s ease-in-out;
+
+    & h2 {
+        display: flex;
+        justify-content: left;
+        padding-left: 20px;
+        gap: 10px;
+        font-family: "League Spartan", sans-serif;
+        color: black;
+        font-size: 25px;
+        font-style: italic;
+    }
+
+    & p {
+        padding-left: 30px;
+        font-size: 19px;
+        color: black;
+        font-family: "League Spartan", sans-serif;
+        font-weight: 600;
+        text-shadow: none;
+        font-style: italic;
+
+        & span {
+            color: rgb(0, 67, 109);
+            font-size: 21px;
+            font-family: "League Spartan", sans-serif;
+        }
+    }
+
+    & .scaleInformation {
+        display: flex;
+        flex-direction: column;
+        gap: 7px;
+    }
+}
 
 /* ÍCONES */
 .setaIcon path {
@@ -98,6 +147,14 @@ html {
 
 .setaIcon {
     font-size: 15px;
+}
+
+.truckIcon path {
+    fill: black;
+}
+
+.truckIcon {
+    font-size: 20px;
 }
 
 /* ANIMAÇÕES */
@@ -130,6 +187,17 @@ html {
 
     to {
         left: 0;
+    }
+}
+
+@keyframes vehicleAnimation {
+    from {
+        top: 90px;
+        opacity: 0;
+    }
+
+    to {
+        top: 100px;
     }
 }
 

@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router";
 import styles from "./home.module.css"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowDown } from '@fortawesome/free-solid-svg-icons';
+import { faArrowDown, faTruck, faArrowUp } from '@fortawesome/free-solid-svg-icons';
 
 function Home() {
     const navigate = useNavigate()
@@ -33,6 +33,19 @@ function Home() {
         navigate('/')
     }
 
+    let c = 0;
+    function showInformations() {
+        let vehicleInformations = document.querySelector("#vehicleInformations");
+        c = c + 1;
+
+        if(c % 2 == 0){
+            vehicleInformations.style.display = "none"
+        } else {
+            vehicleInformations.style.display = "flex"
+        }
+        
+    }
+
     return (
         <div className={styles.patternContainer}>
             <h1 id="welcome" className={styles.welcome}>Olá {localStorage.getItem("getName")}! Tenha ótimas viagens!</h1>
@@ -42,14 +55,27 @@ function Home() {
             </div>
 
             <div className={styles.menu}>
-                <button className={styles.showVehicle}>Informações do Veículo 
-                <FontAwesomeIcon icon={faArrowDown} className={styles.setaIcon}/>
+                <button className={styles.showVehicle} onClick={showInformations}>Informações do Veículo
+                    <FontAwesomeIcon id="setaIcon" icon={faArrowDown} className={styles.setaIcon} />
                 </button>
-                
+
+                <div id="vehicleInformations" className={styles.vehicleInformations}>
+                    <h2>{localStorage.getItem('getVName').toUpperCase()}
+                        <FontAwesomeIcon icon={faTruck} className={styles.truckIcon} />
+                    </h2>
+
+                    <div className={styles.scaleInformation}>
+                        <p>• Altura: <span>{localStorage.getItem("getVHeight")} metros</span></p>
+                        <p>• Largura: <span>{localStorage.getItem("getVWidth")} metros</span></p>
+                        <p>• Comprimento: <span>{localStorage.getItem("getVLength")} metros</span></p>
+                    </div>
+
+                </div>
+
                 <button className={styles.remove} onClick={removeAccount}>Sair da conta</button>
             </div>
 
-           
+
             <div className={styles.content}>
             </div>
 
