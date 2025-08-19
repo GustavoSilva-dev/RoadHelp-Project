@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router";
 import styles from "./home.module.css"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowDown, faTruck, faArrowUp } from '@fortawesome/free-solid-svg-icons';
+import { faArrowDown, faTruck, faBars } from '@fortawesome/free-solid-svg-icons';
 
 function Home() {
     const navigate = useNavigate()
@@ -38,49 +38,69 @@ function Home() {
         let vehicleInformations = document.querySelector("#vehicleInformations");
         c = c + 1;
 
-        if(c % 2 == 0){
+        if (c % 2 == 0) {
             vehicleInformations.style.display = "none"
         } else {
             vehicleInformations.style.display = "flex"
         }
-        
+
     }
 
-    return (
-        <div className={styles.patternContainer}>
-            <h1 id="welcome" className={styles.welcome}>Olá {localStorage.getItem("getName")}! Tenha ótimas viagens!</h1>
+    function hideMenu() {
+        const menu = document.getElementById("menu");
 
-            <div className={styles.map}>
-                *mapa
-            </div>
+        menu.style.display = "none"
+    }
 
-            <div className={styles.menu}>
-                <button className={styles.showVehicle} onClick={showInformations}>Informações do Veículo
-                    <FontAwesomeIcon id="setaIcon" icon={faArrowDown} className={styles.setaIcon} />
-                </button>
+    function showMenu() {
+        const menu = document.getElementById("menu");
 
-                <div id="vehicleInformations" className={styles.vehicleInformations}>
-                    <h2>{localStorage.getItem('getVName').toUpperCase()}
-                        <FontAwesomeIcon icon={faTruck} className={styles.truckIcon} />
-                    </h2>
+        menu.style.display = "flex"
+    }
 
-                    <div className={styles.scaleInformation}>
-                        <p>• Altura: <span>{localStorage.getItem("getVHeight")} metros</span></p>
-                        <p>• Largura: <span>{localStorage.getItem("getVWidth")} metros</span></p>
-                        <p>• Comprimento: <span>{localStorage.getItem("getVLength")} metros</span></p>
-                    </div>
 
+return (
+    <div className={styles.patternContainer}>
+        <h1 id="welcome" className={styles.welcome}>Olá {localStorage.getItem("getName")}! Tenha ótimas viagens!</h1>
+
+        <div className={styles.map}>
+            *mapa
+        </div>
+
+        <button className={styles.showMenu} onClick={showMenu}>
+            <FontAwesomeIcon icon={faBars} className={styles.barsIconOutside} />
+        </button>
+
+        <div id="menu" className={styles.menu}>
+            <button onClick={hideMenu}>
+                <FontAwesomeIcon icon={faBars} className={styles.barsIconInside} />
+            </button>
+
+            <button className={styles.showVehicle} onClick={showInformations}>Informações do Veículo
+                <FontAwesomeIcon id="setaIcon" icon={faArrowDown} className={styles.setaIcon} />
+            </button>
+
+            <div id="vehicleInformations" className={styles.vehicleInformations}>
+                <h2>{localStorage.getItem('getVName').toUpperCase()}
+                    <FontAwesomeIcon icon={faTruck} className={styles.truckIcon} />
+                </h2>
+
+                <div className={styles.scaleInformation}>
+                    <p>• Altura: <span>{localStorage.getItem("getVHeight")} metros</span></p>
+                    <p>• Largura: <span>{localStorage.getItem("getVWidth")} metros</span></p>
+                    <p>• Comprimento: <span>{localStorage.getItem("getVLength")} metros</span></p>
                 </div>
 
-                <button className={styles.remove} onClick={removeAccount}>Sair da conta</button>
             </div>
 
-
-            <div className={styles.content}>
-            </div>
-
+            <button className={styles.remove} onClick={removeAccount}>Sair da conta</button>
         </div>
-    )
-}
+
+
+        <div className={styles.content}>
+        </div>
+
+    </div>
+)}
 
 export default Home;
