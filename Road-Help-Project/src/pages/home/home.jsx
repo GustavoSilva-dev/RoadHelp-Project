@@ -97,7 +97,7 @@ return (
 
             </div>
 
-            <button className={styles.remove} onClick={removeAccount}>Sair da conta</button>
+            <button className={styles.remove} onClick={removeAccount}>Sair da sua conta</button>
         </div>
 
 
