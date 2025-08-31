@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router";
 import styles from "./home.module.css"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowDown, faTruck, faBars } from '@fortawesome/free-solid-svg-icons';
+import { faArrowDown, faTruck, faBars, faUser } from '@fortawesome/free-solid-svg-icons';
 
 function Home() {
     const navigate = useNavigate()
@@ -76,15 +76,19 @@ return (
                 <FontAwesomeIcon icon={faBars} className={styles.barsIconInside} />
             </button>
 
+            <div className={styles.UserName}>
+                <FontAwesomeIcon id="userIcon" className={styles.userIcon} icon={faUser} />
+                <p>Olá, {localStorage.getItem("getName")}!</p>
+            </div>
+
             <button className={styles.showVehicle} onClick={showInformations}>Informações do Veículo
                 <FontAwesomeIcon id="setaIcon" icon={faArrowDown} className={styles.setaIcon} />
             </button>
 
             <div id="vehicleInformations" className={styles.vehicleInformations}>
-                <h2>{localStorage.getItem('getVName').toUpperCase()}
+                {localStorage.getItem('getVName') ? <h2>{localStorage.getItem('getVName').toUpperCase()}
                     <FontAwesomeIcon icon={faTruck} className={styles.truckIcon} />
-                </h2>
-
+                </h2> : <h2></h2>}
                 <div className={styles.scaleInformation}>
                     <p>• Altura: <span>{localStorage.getItem("getVHeight")} metros</span></p>
                     <p>• Largura: <span>{localStorage.getItem("getVWidth")} metros</span></p>

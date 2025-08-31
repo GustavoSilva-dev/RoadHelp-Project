@@ -53,6 +53,7 @@ html {
 }
 
 .menu {
+    overflow: hidden;
     position: fixed;
     align-self: left;
     display: none;
@@ -62,6 +63,29 @@ html {
     width: 300px;
     background-color: #fff;
     animation: 0.5s menuApparition ease-in-out;
+}
+
+.menu button:first-of-type {
+    border: none;
+}
+
+.UserName {
+    border-top: 1.5px solid blue;
+    border-bottom: 1.5px solid blue;
+    position: relative;
+    top: 8vh;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    height: 45px;
+
+    & p {
+        animation: userAnimation 2.5s linear infinite;
+        color: black;
+        font-size: 20px;
+        text-shadow: none;
+    }
 }
 
 .remove {
@@ -161,6 +185,15 @@ html {
 }
 
 /* ÍCONES */
+.userIcon path {
+    animation: userAnimation 2.5s linear infinite;
+    fill: black;
+}
+
+.userIcon {
+    font-size: 20px
+}
+
 .setaIcon path {
     fill: black ;
 }
@@ -245,6 +278,23 @@ html {
 
     to {
         top: 100px;
+    }
+}
+
+@keyframes userAnimation {
+    0% {
+        color: black;
+        fill: black;
+    }
+
+    25%{
+        color: rgb(0, 0, 165);
+        fill: rgb(0, 0, 165);
+    }
+
+    75% {
+        color: black;
+        fill: black;
     }
 }
 
