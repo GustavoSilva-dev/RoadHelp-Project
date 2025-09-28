@@ -24,11 +24,11 @@ Projeto focado na criação de um GPS funcional e interativo, destinado para ve�
 ## 🛠️ Tecnologias Utilizadas
 
 - [x] HTML5 / CSS3 / JavaScript
+- [x] React
 - [x] Node.js / Express
-- [x] React 
 - [x] MongoDB / Prisma Client
 - [x] Git / GitHub
-- [x] Open Street Maps 
+- [x] MapLibre GL JS / TomTom API
 
 ---
 
