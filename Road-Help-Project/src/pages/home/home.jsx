@@ -1,11 +1,13 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useNavigate } from "react-router";
 import styles from "./home.module.css"
+import Mapa from "../../services/Mapa";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowDown, faTruck, faBars, faUser } from '@fortawesome/free-solid-svg-icons';
 
 function Home() {
     const navigate = useNavigate()
+    const Search = useRef()
 
     useEffect(() => {
         const token = localStorage.getItem("getToken")
@@ -23,49 +25,73 @@ function Home() {
         }, 4900);
     });
 
-    function removeAccount() {
-        localStorage.removeItem("getToken");
-        localStorage.removeItem('getName');
-        localStorage.removeItem('getVName');
-        localStorage.removeItem('getVHeight');
-        localStorage.removeItem('getVWidth');
-        localStorage.removeItem('getVLength');
-        navigate('/')
-    }
+    const mapRef = useRef(null); // cria a referência aqui
 
-    let c = 0;
-    function showInformations() {
-        let vehicleInformations = document.querySelector("#vehicleInformations");
-        c = c + 1;
+    const buscarEndereco = async () => {
+        const termo = Search.current.value;
 
-        if (c % 2 == 0) {
-            vehicleInformations.style.display = "none"
+        const url = `https://api.tomtom.com/search/2/search/${encodeURIComponent(termo)}.json?key=EtPSLvVg3IdQ3FeRlcZcfXOD6xnxjY8Y&limit=1`;
+
+        const response = await fetch(url);
+        const data = await response.json();
+        console.log(data.results[0])
+        console.log(data.results[0].position)
+
+        if (data.results && data.results.length > 0) {
+            const { lat, lon } = data.results[0].position;
+
+            if (mapRef.current) {
+                mapRef.current.flyTo({
+                    center: [lon, lat],
+                    zoom: 17
+                });
+            } else {
+                console.log("mapRef ainda está nulo.");
+            }
         } else {
-            vehicleInformations.style.display = "flex"
+            alert("Endereço não encontrado.");
         }
+    };
 
+function removeAccount() {
+    localStorage.removeItem("getToken");
+    localStorage.removeItem('getName');
+    localStorage.removeItem('getVName');
+    localStorage.removeItem('getVHeight');
+    localStorage.removeItem('getVWidth');
+    localStorage.removeItem('getVLength');
+    navigate('/')
+}
+
+let c = 0;
+function showInformations() {
+    let vehicleInformations = document.querySelector("#vehicleInformations");
+    c = c + 1;
+
+    if (c % 2 == 0) {
+        vehicleInformations.style.display = "none"
+    } else {
+        vehicleInformations.style.display = "flex"
     }
 
-    function hideMenu() {
-        const menu = document.getElementById("menu");
+}
 
-        menu.style.display = "none"
-    }
+function hideMenu() {
+    const menu = document.getElementById("menu");
 
-    function showMenu() {
-        const menu = document.getElementById("menu");
+    menu.style.display = "none"
+}
 
-        menu.style.display = "flex"
-    }
+function showMenu() {
+    const menu = document.getElementById("menu");
+
+    menu.style.display = "flex"
+}
 
 
 return (
     <div className={styles.patternContainer}>
         <h1 id="welcome" className={styles.welcome}>Olá {localStorage.getItem("getName")}! Tenha ótimas viagens!</h1>
-
-        <div className={styles.map}>
-            *mapa
-        </div>
 
         <button className={styles.showMenu} onClick={showMenu}>
             <FontAwesomeIcon icon={faBars} className={styles.barsIconOutside} />
@@ -100,10 +126,14 @@ return (
             <button className={styles.remove} onClick={removeAccount}>Sair da sua conta</button>
         </div>
 
-
-        <div className={styles.content}>
+        <div className={styles.searchBar}>
+            <input type="text" ref={Search} onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                    buscarEndereco()
+                }
+            }} placeholder="Buscar endereço" />
         </div>
-
+        <Mapa mapRef={mapRef}/>
     </div>
 )}
 

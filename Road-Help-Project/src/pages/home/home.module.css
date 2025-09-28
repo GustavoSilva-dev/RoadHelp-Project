@@ -41,7 +41,7 @@ html {
     z-index: 1;
     border: 3px solid white;
     border-radius: 100%;
-    background-color: #ffffff00;
+    background-color: rgb(0, 99, 212);
     height: 70px;
     width: 70px;
     cursor: pointer;
@@ -50,6 +50,16 @@ html {
 
 .showMenu:hover {
     margin-top: 2.3vh;
+}
+
+.searchBar {
+    position: absolute;
+    z-index: 3;
+    justify-self: center;
+    margin-top: 20px;
+    & input {
+        width: 1000px;
+    }
 }
 
 .menu {
