@@ -58,7 +58,7 @@ html {
     justify-self: center;
     margin-top: 20px;
     & input {
-        width: 1000px;
+        width: 650px;
     }
 }
 

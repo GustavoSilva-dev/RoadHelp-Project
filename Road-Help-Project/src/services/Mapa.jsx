@@ -1,8 +1,10 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import maplibregl from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 
 export default function Mapa({ mapRef, enviarLocalizacao }) {
+  const markerRef = useRef(null)
+
   useEffect(() => {
     if (navigator.geolocation) {
       navigator.geolocation.watchPosition(
@@ -16,12 +18,16 @@ export default function Mapa({ mapRef, enviarLocalizacao }) {
           if (mapRef.current) {
             mapRef.current.flyTo({
               center: [longitude, latitude],
-              zoom: 17
+              zoom: 18
             });
+          }
 
-            new maplibregl.Marker()
+          if (!markerRef.current) {
+            markerRef.current = new maplibregl.Marker()
               .setLngLat([longitude, latitude])
               .addTo(mapRef.current);
+          } else {
+            markerRef.current.setLngLat([longitude, latitude])
           }
         },
         (erro) => {

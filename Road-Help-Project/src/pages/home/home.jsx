@@ -14,7 +14,7 @@ function Home() {
     const [origem, setOrigem] = useState(null);
 
     const receberLocalizacao = (posicao) => {
-        setOrigem(posicao); 
+        setOrigem(posicao);
     };
 
     useEffect(() => {
@@ -53,6 +53,7 @@ function Home() {
         }
     };
 
+    const destinationMarker = useRef(null);
     async function buscarEndereco() {
         const termo = Search.current.value;
 
@@ -62,45 +63,60 @@ function Home() {
 
         if (dados.results && dados.results.length > 0 && origem) {
             const destino = dados.results[0].position;
+            const map = mapRef.current
 
             // marcador no destino
-            new maplibregl.Marker({ color: "red" })
-                .setLngLat([destino.lon, destino.lat])
-                .addTo(mapRef.current);
+            if (!destinationMarker.current) {
+                destinationMarker.current = new maplibregl.Marker({ color: "red" })
+                    .setLngLat([destino.lon, destino.lat])
+                    .addTo(mapRef.current);
+            } else {
+                destinationMarker.current.setLngLat([destino.lon, destino.lat])
+            }
 
-            // chama rota
             const urlRota = `https://api.tomtom.com/routing/1/calculateRoute/${origem.lat},${origem.lon}:${destino.lat},${destino.lon}/json?key=EtPSLvVg3IdQ3FeRlcZcfXOD6xnxjY8Y&routeType=fastest&travelMode=car`;
-
             const respostaRota = await fetch(urlRota);
             const dadosRota = await respostaRota.json();
-
             const coordenadas = dadosRota.routes[0].legs[0].points.map(p => [p.longitude, p.latitude]);
 
-            // desenha rota no mapa
-            mapRef.current.addLayer({
-                id: "rota",
-                type: "line",
-                source: {
-                    type: "geojson",
-                    data: {
-                        type: "Feature",
-                        geometry: {
-                            type: "LineString",
-                            coordinates: coordenadas
-                        }
+            if (map.getLayer('rota')) {
+                map.removeLayer('rota');
+            }
+            if (map.getSource('rota')) {
+                map.removeSource('rota');
+            }
+            // ======================== FIM DA CORREÇÃO =========================
+
+            // 2. ADICIONA A NOVA ROTA (FONTE DE DADOS + CAMADA)
+            map.addSource('rota', {
+                type: 'geojson',
+                data: {
+                    type: 'Feature',
+                    geometry: {
+                        type: 'LineString',
+                        coordinates: coordenadas
                     }
-                },
-                layout: {
-                    "line-join": "round",
-                    "line-cap": "round"
-                },
-                paint: {
-                    "line-color": "#ff6600",
-                    "line-width": 5
                 }
             });
 
-            mapRef.current.flyTo({ center: [destino.lon, destino.lat], zoom: 14 });
+            map.addLayer({
+                id: 'rota',
+                type: 'line',
+                source: 'rota', // Diz à camada para usar a fonte de dados 'rota'
+                layout: {
+                    'line-join': 'round',
+                    'line-cap': 'round'
+                },
+                paint: {
+                    'line-color': '#0044ffff',
+                    'line-width': 5
+                }
+            });
+
+            map.flyTo({ center: [destino.lon, destino.lat], zoom: 14 });
+
+            const resumo = dadosRota.routes[0].summary
+            console.log((resumo.lengthInMeters / 1000).toFixed(2));
         } else {
             alert("Endereço não encontrado ou localização atual indisponível.");
         }
@@ -189,7 +205,8 @@ function Home() {
                 </ul>
 
             </div>
-            <Mapa mapRef={mapRef} enviarLocalizacao={receberLocalizacao}/>
+
+            <Mapa mapRef={mapRef} enviarLocalizacao={receberLocalizacao} />
         </div>
     )
 }
