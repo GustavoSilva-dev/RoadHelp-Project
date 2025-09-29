@@ -51,7 +51,7 @@ html {
 .showMenu:hover {
     margin-top: 2.3vh;
 }
-
+/* BARRA DE PESQUISA */
 .searchBar {
     position: absolute;
     z-index: 3;
@@ -60,6 +60,32 @@ html {
     & input {
         width: 1000px;
     }
+}
+
+.sugestoes {
+  position: absolute;
+  top: 50px;
+  width: 100%;
+  z-index: 2;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sugestoes li {
+  background-color: white;
+  color:  black;
+  font-weight: 500;
+  padding: 8px;
+  cursor: pointer;
+  border-radius: 10px;
+  border: 1.5px solid #004aad;
+  box-shadow: 20px;
+  transition: 0.4s;
+}
+
+.sugestoes li:hover {
+  background-color: #f0f0f0;
 }
 
 .menu {
