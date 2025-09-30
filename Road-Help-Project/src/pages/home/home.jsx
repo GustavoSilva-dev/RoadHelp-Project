@@ -12,6 +12,8 @@ function Home() {
     const mapRef = useRef(null);
     const [sugestoes, setSugestoes] = useState([]);
     const [origem, setOrigem] = useState(null);
+    const [parametros, setParametros] = useState(null);
+
 
     const receberLocalizacao = (posicao) => {
         setOrigem(posicao);
@@ -56,7 +58,6 @@ function Home() {
     const destinationMarker = useRef(null);
     async function buscarEndereco() {
         const termo = Search.current.value;
-
         const urlBusca = `https://api.tomtom.com/search/2/search/${encodeURIComponent(termo)}.json?key=EtPSLvVg3IdQ3FeRlcZcfXOD6xnxjY8Y&limit=1`;
         const resposta = await fetch(urlBusca);
         const dados = await resposta.json();
@@ -115,8 +116,10 @@ function Home() {
 
             map.flyTo({ center: [destino.lon, destino.lat], zoom: 14 });
 
-            const resumo = dadosRota.routes[0].summary
-            console.log((resumo.lengthInMeters / 1000).toFixed(2));
+            const parametros = dadosRota.routes[0].summary;
+            setParametros(parametros);
+
+            const horas = formatarTempo();
         } else {
             alert("Endereço não encontrado ou localização atual indisponível.");
         }
@@ -155,6 +158,13 @@ function Home() {
         menu.style.display = "flex"
     }
 
+    function formatarTempo(parametros) {
+        const horas = Math.floor(parametros / 3600)
+        const minutos = Math.floor((parametros % 3600) / 60)
+
+        return horas + "h" + minutos + "m";
+    }
+
 
     return (
         <div className={styles.patternContainer}>
@@ -179,9 +189,10 @@ function Home() {
                 </button>
 
                 <div id="vehicleInformations" className={styles.vehicleInformations}>
-                    {localStorage.getItem('getVName') ? <h2>{localStorage.getItem('getVName').toUpperCase()}
-                        <FontAwesomeIcon icon={faTruck} className={styles.truckIcon} />
-                    </h2> : <h2></h2>}
+                    {
+                        localStorage.getItem('getVName') ? <h2>{localStorage.getItem('getVName').toUpperCase()}
+                            <FontAwesomeIcon icon={faTruck} className={styles.truckIcon} />
+                        </h2> : <h2></h2>}
                     <div className={styles.scaleInformation}>
                         <p>• Altura: <span>{localStorage.getItem("getVHeight")} metros</span></p>
                         <p>• Largura: <span>{localStorage.getItem("getVWidth")} metros</span></p>
@@ -193,6 +204,7 @@ function Home() {
                 <button className={styles.remove} onClick={removeAccount}>Sair da sua conta</button>
             </div>
 
+
             <div className={styles.searchBar}>
                 <input type="text" ref={Search} onChange={(e) => { buscarSugestoes(e.target.value) }} onKeyDown={(e) => {
                     if (e.key === "Enter") { buscarEndereco() }
@@ -203,8 +215,14 @@ function Home() {
                         {sugestao}
                     </li>))}
                 </ul>
-
             </div>
+            
+            {parametros &&
+                (<div className={styles.infoRota}>
+                    <h2>Distancia da Rota: {(parametros.lengthInMeters / 1000).toFixed(1)}km</h2>
+                    <h2>Tempo da Rota: {formatarTempo(parametros.travelTimeInSeconds)}</h2>
+                </div>)
+            }
 
             <Mapa mapRef={mapRef} enviarLocalizacao={receberLocalizacao} />
         </div>

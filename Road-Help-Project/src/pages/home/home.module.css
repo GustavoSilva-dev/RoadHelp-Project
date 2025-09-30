@@ -221,6 +221,11 @@ html {
     }
 }
 
+.infoRota {
+    position: relative;
+    z-index: 10;
+}
+
 /* ÍCONES */
 .userIcon path {
     animation: userAnimation 2.5s linear infinite;
