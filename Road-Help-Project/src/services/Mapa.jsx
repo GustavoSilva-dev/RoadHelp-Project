@@ -50,32 +50,16 @@ export default function Mapa({ mapRef, enviarLocalizacao }) {
 
     const map = new maplibregl.Map({
       container: "map",
-      style: {
-        version: 8,
-        sources: {
-          tomtom: {
-            type: "raster",
-            tiles: [
-              `https://api.tomtom.com/map/1/tile/basic/main/{z}/{x}/{y}.png?key=EtPSLvVg3IdQ3FeRlcZcfXOD6xnxjY8Y`
-            ],
-            tileSize: 256,
-            attribution: '© <a href="https://www.tomtom.com/">TomTom</a>'
-          }
-        },
-        layers: [
-          {
-            id: "tomtom",
-            type: "raster",
-            source: "tomtom"
-          }
-        ]
-      },
+      style: `https://api.tomtom.com/style/2/custom/style/dG9tdG9tQEBAVG8zc09NOGFkS2lDVVhGSDv9AEVyK5FBGqZjLdrEMKkr/drafts/0.json?key=EtPSLvVg3IdQ3FeRlcZcfXOD6xnxjY8Y`,
       center: [-46.6333, -23.5505],
-      zoom: 12
+      zoom: 12,
+      pitch: 60
     });
 
     mapRef.current = map;
   }, []);
+
+
 
   return <div id="map" style={{ width: "100%", height: "100vh" }} />;
 }

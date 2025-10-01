@@ -1,10 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router";
-import styles from "./home.module.css"
+import styles from "./home.module.css";
+import "./adicionais.css";
 import maplibregl from "maplibre-gl";
 import Mapa from "../../services/Mapa";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowDown, faTruck, faBars, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faArrowDown, faTruck, faBars, faUser, faSearch } from '@fortawesome/free-solid-svg-icons';
 
 function Home() {
     const navigate = useNavigate()
@@ -13,6 +14,9 @@ function Home() {
     const [sugestoes, setSugestoes] = useState([]);
     const [origem, setOrigem] = useState(null);
     const [parametros, setParametros] = useState(null);
+    const [searchVisible, setSearchVisible] = useState(false); // controla a barra de pesquisa
+    const [isVisible, setIsVisible] = useState(false);      // mantém no DOM
+    const [animateClass, setAnimateClass] = useState("");
 
 
     const receberLocalizacao = (posicao) => {
@@ -34,6 +38,16 @@ function Home() {
             document.getElementById("welcome").style.display = "none";
         }, 4900);
     });
+
+    useEffect(() => {
+        if (searchVisible) {
+            setAnimateClass("showSearchBar");
+        } else {
+            setAnimateClass("hideSearchBar");
+        }
+    }, [searchVisible]);
+
+    
 
     async function buscarSugestoes(termo) {
         if (!termo) {
@@ -86,9 +100,7 @@ function Home() {
             if (map.getSource('rota')) {
                 map.removeSource('rota');
             }
-            // ======================== FIM DA CORREÇÃO =========================
 
-            // 2. ADICIONA A NOVA ROTA (FONTE DE DADOS + CAMADA)
             map.addSource('rota', {
                 type: 'geojson',
                 data: {
@@ -143,7 +155,6 @@ function Home() {
         } else {
             vehicleInformations.style.display = "flex"
         }
-
     }
 
     function hideMenu() {
@@ -165,6 +176,18 @@ function Home() {
         return horas + "h" + minutos + "m";
     }
 
+    function toggleSearchBar() {
+        setSearchVisible(!searchVisible);
+        const pesquisa = document.getElementById("searchBar");
+
+        if (searchVisible) {
+            setTimeout(() => {
+                pesquisa.style.display = "none";
+            }, "320")
+        } else {
+            pesquisa.style.display = "flex";
+        }
+    }
 
     return (
         <div className={styles.patternContainer}>
@@ -184,7 +207,7 @@ function Home() {
                     <p>Olá, {localStorage.getItem("getName")}!</p>
                 </div>
 
-                <button className={styles.showVehicle} onClick={showInformations}>Informações do Veículo
+                <button className={styles.showVehicle} id="showVehicle" onClick={showInformations}>Informações do Veículo
                     <FontAwesomeIcon id="setaIcon" icon={faArrowDown} className={styles.setaIcon} />
                 </button>
 
@@ -204,19 +227,32 @@ function Home() {
                 <button className={styles.remove} onClick={removeAccount}>Sair da sua conta</button>
             </div>
 
+            <button className={styles.showSearch} onClick={toggleSearchBar}>
+                <FontAwesomeIcon icon={faSearch} />
+            </button>
 
-            <div className={styles.searchBar}>
-                <input type="text" ref={Search} onChange={(e) => { buscarSugestoes(e.target.value) }} onKeyDown={(e) => {
-                    if (e.key === "Enter") { buscarEndereco() }
-                }} placeholder="Buscar endereço de destino" />
-                <ul className={styles.sugestoes}>
-                    {sugestoes.map((sugestao, index) =>
-                    (<li key={index} onClick={() => { Search.current.value = sugestao; setSugestoes([]); }}>
-                        {sugestao}
-                    </li>))}
+            <div className="searchContainer">
+                <input
+                    className={`searchBar ${animateClass}`}
+                    id="searchBar"
+                    type="text"
+                    ref={Search}
+                    onChange={(e) => buscarSugestoes(e.target.value)}
+                    onKeyDown={(e) => { if (e.key === "Enter") buscarEndereco(); }}
+                    placeholder="Buscar endereço de destino"
+                />
+                <ul className={`sugestoes ${animateClass === "showSearchBar" ? "showSugestoes" : "hideSugestoes"}`}>
+                    {sugestoes.map((sugestao, index) => (
+                        <li
+                            key={index}
+                            onClick={() => { Search.current.value = sugestao; setSugestoes([]); }}
+                        >
+                            {sugestao}
+                        </li>
+                    ))}
                 </ul>
             </div>
-            
+
             {parametros &&
                 (<div className={styles.infoRota}>
                     <h2>Distancia da Rota: {(parametros.lengthInMeters / 1000).toFixed(1)}km</h2>

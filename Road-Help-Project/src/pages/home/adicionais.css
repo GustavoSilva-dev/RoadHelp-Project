@@ -1,0 +1,77 @@
+/* Container que envolve barra + sugestões */
+.searchContainer {
+  position: fixed; /* fixado em relação à tela */
+  top: 4vh;        /* mesma altura da lupa */
+  left: 18%;     /* ajusta horizontalmente */
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  z-index: 10;     /* acima do mapa */
+}
+
+/* Barra de pesquisa */
+.searchBar {
+  width: 650px;             /* maior */
+  padding: 10px 15px;
+  border-radius: 12px;
+  border: 2px solid #004aad;
+  opacity: 0;
+  transform: translateX(-30px); /* animação inicial */
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  background-color: white;
+  position: relative;
+  z-index: 1;
+}
+
+/* Ao abrir */
+.showSearchBar {
+  display: flex;
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Ao fechar */
+.hideSearchBar {
+  display: flex;
+  opacity: 0;
+  transform: translateX(-30px);
+}
+
+/* Sugestões */
+.sugestoes {
+  position: absolute;
+  top: 50px;
+  width: 100%;
+  z-index: 2;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  transform: translateX(-10px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.sugestoes li {
+  background-color: white;
+  color:  black;
+  font-weight: 500;
+  padding: 8px;
+  cursor: pointer;
+  border-radius: 10px;
+  border: 1.5px solid #004aad;
+  box-shadow: 20px;
+  transition: 0.4s;
+}
+
+.sugestoes li:hover {
+  background-color: #f0f0f0;
+}
+
+.showSugestoes {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.hideSugestoes {
+  opacity: 0;
+  transform: translateX(-30px);
+}

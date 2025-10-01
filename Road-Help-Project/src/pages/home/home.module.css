@@ -8,16 +8,56 @@ html {
     width: 100vw;
 }
 
+.showSearch {
+    position: fixed;
+    margin-top: 2vh;
+    margin-left: 10vw;
+    z-index: 1;
+    border: 3px solid white;
+    border-radius: 100%;
+    background-color: rgb(0, 99, 212);
+    height: 70px;
+    width: 70px;
+    cursor: pointer;
+    transition: 0.2s;
+    font-size: 25px;
+    color: white;
+}
+
+.showSearch:hover {
+    margin-top: 2.3vh;
+}
+
 .welcome {
     font-size: 30px;
     position: fixed;
+    bottom: 0; 
+    left: 50%;
+    transform: translateX(-50%) translateY(100%);
     text-align: center;
-    justify-self: center;
-    z-index: 1;
-    text-shadow: 0 2px black,
-        0 0 30px black;
-    margin-top: 20px;
-    animation: welcomeAnimation 5s ease-in-out;
+    z-index: 1000;
+    text-shadow: 0 4px black, 0 0 30px black;
+    animation: slideUpDown 4s ease forwards;
+    opacity: 0;
+}
+
+@keyframes slideUpDown {
+    0% {
+        transform: translateX(-50%) translateY(100%);
+        opacity: 0;
+    }
+    20% {
+        transform: translateX(-50%) translateY(-100%);
+        opacity: 1;
+    }
+    80% {
+        transform: translateX(-50%) translateY(-100%);
+        opacity: 1;
+    }
+    100% {
+        transform: translateX(-50%) translateY(100%);
+        opacity: 0;
+    }
 }
 
 .map {
