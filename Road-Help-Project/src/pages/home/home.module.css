@@ -267,7 +267,7 @@ html {
 
 .clockIcon, .truckFastIcon {
     position: relative;
-    animation: animationIcon 0.5s ease-in-out infinite;
+    animation: animationIcon 0.7s ease-in-out infinite;
 }
 
 @keyframes infoRotaAnimacao {
@@ -284,15 +284,15 @@ html {
 
 @keyframes animationIcon {
     0% {
-        left: -18px;
+        left: -10px;
     }
 
     50% {
-        left: -16px;
+        left: -8px;
     }
      
     100% {
-        left: -18px;
+        left: -10px;
     }
 }
 

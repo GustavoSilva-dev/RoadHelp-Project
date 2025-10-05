@@ -93,6 +93,7 @@ body {
     & button {
         cursor: pointer;
         border: none;
+        border-radius: 6.5px;
         color: white;
         background-color: #004aad;
         font-size: 17px;
@@ -168,6 +169,7 @@ input[type="submit"] {
 .avancarEtapa {
     cursor: pointer;
     border: none;
+    border-radius: 6.5px;
     color: white;
     background-color: #004aad;
     font-size: 17px;

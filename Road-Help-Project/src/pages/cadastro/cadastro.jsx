@@ -273,7 +273,7 @@ function Cadastro() {
               ref={inputVLength}
             />
 
-            <button type="button" onClick={verifyEtapa2}>Confirmar</button>
+            <button type="button" id="confirmar" onClick={verifyEtapa2}>Confirmar</button>
           </div>
 
         </form>

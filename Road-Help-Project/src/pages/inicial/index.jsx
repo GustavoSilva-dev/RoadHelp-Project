@@ -15,6 +15,12 @@ function Inicial() {
     animacaoJS()
   }, []);
 
+  useEffect(() => {
+    function fraseAnimation() {
+      setInterval
+    }
+  })
+
   return (
     <main id="tela-de-entrada">
 
