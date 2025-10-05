@@ -158,8 +158,9 @@ p {
 }
 
 .errorLoginSquare p {
-    font-size: 17px;
-    width: 200px;
+    width: 230px;
+    font-size: 20px;
+    font-weight: 500;
     display: flex;
     justify-content: center;
     text-align: center;
@@ -285,8 +286,8 @@ p {
     }
 
     .errorLoginSquare p {
-        font-size: 19px;
-        width: 200px;
+        font-size: 24px;
+        width: 340px;
         display: flex;
         justify-content: center;
         text-align: center;

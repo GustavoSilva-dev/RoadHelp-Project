@@ -1,22 +1,27 @@
 /* Container que envolve barra + sugestões */
 .searchContainer {
-  position: fixed; /* fixado em relação à tela */
-  top: 4vh;        /* mesma altura da lupa */
-  left: 18%;     /* ajusta horizontalmente */
+  position: fixed;
+  /* fixado em relação à tela */
+  top: 4vh;
+  /* mesma altura da lupa */
+  left: 18%;
+  /* ajusta horizontalmente */
   display: flex;
-  flex-direction: column;
   gap: 5px;
-  z-index: 10;     /* acima do mapa */
+  z-index: 10;
+  /* acima do mapa */
 }
 
 /* Barra de pesquisa */
 .searchBar {
-  width: 650px;             /* maior */
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.35);
+  margin-left: -40px;
+  width: 650px;
   padding: 10px 15px;
   border-radius: 12px;
   border: 2px solid #004aad;
   opacity: 0;
-  transform: translateX(-30px); /* animação inicial */
+  transform: translateX(-30px);
   transition: opacity 0.3s ease, transform 0.3s ease;
   background-color: white;
   position: relative;
@@ -34,14 +39,15 @@
 .hideSearchBar {
   display: flex;
   opacity: 0;
-  transform: translateX(-30px);
+  transform: translateX(-20px);
 }
 
 /* Sugestões */
 .sugestoes {
+  left: -40px;
   position: absolute;
   top: 50px;
-  width: 100%;
+  width: 650px;
   z-index: 2;
   list-style: none;
   padding: 0;
@@ -52,7 +58,7 @@
 
 .sugestoes li {
   background-color: white;
-  color:  black;
+  color: black;
   font-weight: 500;
   padding: 8px;
   cursor: pointer;
@@ -73,5 +79,37 @@
 
 .hideSugestoes {
   opacity: 0;
-  transform: translateX(-30px);
+  transform: translateX(-20px);
+}
+
+.envButton {
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.35);
+  opacity: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+  border: 3px solid white;
+  border-radius: 100%;
+  background-color: rgb(0, 99, 212);
+  height: 55px;
+  width: 55px;
+  transition: 0.2s;
+}
+
+.showEnvbutton {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.hideEnvbutton {
+  opacity: 0;
+  transform: translateX(-20px);
+}
+
+.envButton:hover {
+  cursor: pointer;
+  transition: 0.2s;
+  transform: scale(1.05);
 }

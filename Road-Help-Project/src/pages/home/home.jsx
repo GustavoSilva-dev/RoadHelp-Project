@@ -5,7 +5,7 @@ import "./adicionais.css";
 import maplibregl from "maplibre-gl";
 import Mapa from "../../services/Mapa";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowDown, faTruck, faBars, faUser, faSearch } from '@fortawesome/free-solid-svg-icons';
+import { faArrowDown, faTruck, faTruckFast, faBars, faUser, faSearch, faPaperPlane, faClock } from '@fortawesome/free-solid-svg-icons';
 
 function Home() {
     const navigate = useNavigate()
@@ -47,7 +47,7 @@ function Home() {
         }
     }, [searchVisible]);
 
-    
+
 
     async function buscarSugestoes(termo) {
         if (!termo) {
@@ -94,6 +94,14 @@ function Home() {
             const dadosRota = await respostaRota.json();
             const coordenadas = dadosRota.routes[0].legs[0].points.map(p => [p.longitude, p.latitude]);
 
+            const bounds = coordenadas.reduce((bounds, coord) => {
+                return bounds.extend(coord);
+            }, new maplibregl.LngLatBounds(coordenadas[0], coordenadas[0]));
+
+            map.fitBounds(bounds, {
+                padding: 100
+            });
+
             if (map.getLayer('rota')) {
                 map.removeLayer('rota');
             }
@@ -125,8 +133,6 @@ function Home() {
                     'line-width': 5
                 }
             });
-
-            map.flyTo({ center: [destino.lon, destino.lat], zoom: 14 });
 
             const parametros = dadosRota.routes[0].summary;
             setParametros(parametros);
@@ -251,12 +257,16 @@ function Home() {
                         </li>
                     ))}
                 </ul>
+
+                <button className={`envButton ${animateClass === "showSearchBar" ? "showEnvbutton" : "hideEnvbutton"}`} onClick={buscarEndereco}>
+                    <FontAwesomeIcon icon={faPaperPlane} />
+                </button>
             </div>
 
             {parametros &&
                 (<div className={styles.infoRota}>
-                    <h2>Distancia da Rota: {(parametros.lengthInMeters / 1000).toFixed(1)}km</h2>
-                    <h2>Tempo da Rota: {formatarTempo(parametros.travelTimeInSeconds)}</h2>
+                    <h2>Distância da Rota: <span><FontAwesomeIcon icon={faTruckFast} className={styles.truckFastIcon}/> {(parametros.lengthInMeters / 1000).toFixed(1)}km</span></h2>
+                    <h2>Tempo da Rota: <span><FontAwesomeIcon icon={faClock} className={styles.clockIcon}/> {formatarTempo(parametros.travelTimeInSeconds)}</span></h2>
                 </div>)
             }
 

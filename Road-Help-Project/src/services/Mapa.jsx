@@ -7,15 +7,17 @@ export default function Mapa({ mapRef, enviarLocalizacao }) {
 
   useEffect(() => {
     if (navigator.geolocation) {
+      let c = 0
       navigator.geolocation.watchPosition(
         async (posicao) => {
+          c = c + 1
           const { latitude, longitude } = posicao.coords;
           enviarLocalizacao({
             lat: latitude,
             lon: longitude
           });
 
-          if (mapRef.current) {
+          if (mapRef.current && c == 1) {
             mapRef.current.flyTo({
               center: [longitude, latitude],
               zoom: 18
@@ -46,7 +48,7 @@ export default function Mapa({ mapRef, enviarLocalizacao }) {
 
   useEffect(() => {
     if (mapRef.current) return;
-    maplibregl.setWorkerCount(6);
+    maplibregl.setWorkerCount(4);
 
     const map = new maplibregl.Map({
       container: "map",

@@ -9,8 +9,9 @@ html {
 }
 
 .showSearch {
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.35);
     position: fixed;
-    margin-top: 2vh;
+    margin-top: 2.3vh;
     margin-left: 10vw;
     z-index: 1;
     border: 3px solid white;
@@ -25,13 +26,13 @@ html {
 }
 
 .showSearch:hover {
-    margin-top: 2.3vh;
+    margin-top: 2.6vh;
 }
 
 .welcome {
     font-size: 30px;
     position: fixed;
-    bottom: 0; 
+    bottom: 0;
     left: 50%;
     transform: translateX(-50%) translateY(100%);
     text-align: center;
@@ -46,14 +47,17 @@ html {
         transform: translateX(-50%) translateY(100%);
         opacity: 0;
     }
+
     20% {
         transform: translateX(-50%) translateY(-100%);
         opacity: 1;
     }
+
     80% {
         transform: translateX(-50%) translateY(-100%);
         opacity: 1;
     }
+
     100% {
         transform: translateX(-50%) translateY(100%);
         opacity: 0;
@@ -75,6 +79,7 @@ html {
 }
 
 .showMenu {
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.35);
     position: fixed;
     margin-top: 2vh;
     margin-left: 2vw;
@@ -82,50 +87,14 @@ html {
     border: 3px solid white;
     border-radius: 100%;
     background-color: rgb(0, 99, 212);
-    height: 70px;
-    width: 70px;
+    height: 95px;
+    width: 95px;
     cursor: pointer;
     transition: 0.2s;
 }
 
 .showMenu:hover {
     margin-top: 2.3vh;
-}
-/* BARRA DE PESQUISA */
-.searchBar {
-    position: absolute;
-    z-index: 3;
-    justify-self: center;
-    margin-top: 20px;
-    & input {
-        width: 650px;
-    }
-}
-
-.sugestoes {
-  position: absolute;
-  top: 50px;
-  width: 100%;
-  z-index: 2;
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.sugestoes li {
-  background-color: white;
-  color:  black;
-  font-weight: 500;
-  padding: 8px;
-  cursor: pointer;
-  border-radius: 10px;
-  border: 1.5px solid #004aad;
-  box-shadow: 20px;
-  transition: 0.4s;
-}
-
-.sugestoes li:hover {
-  background-color: #f0f0f0;
 }
 
 .menu {
@@ -134,10 +103,11 @@ html {
     align-self: left;
     display: none;
     flex-direction: column;
-    z-index: 2;
+    z-index: 1000;
     height: 100vh;
     width: 300px;
     background-color: #fff;
+    box-shadow: 0 0 90px rgba(0, 0, 0, 0.3);
     animation: 0.5s menuApparition ease-in-out;
 }
 
@@ -262,8 +232,68 @@ html {
 }
 
 .infoRota {
+    position: fixed;
+    bottom: 45px;
+    right: 20px;
+    background: linear-gradient(rgb(0, 0, 120), rgb(0, 34, 255));
+    color: white;
+    padding: 24px;
+    border-radius: 10px;
+    z-index: 1000;
+    text-align: center;
+    box-shadow: 0 0 80px rgba(0, 0, 0, 0.231);
+    animation: infoRotaAnimacao 0.5s ease-in-out;
+
+    & h2 {
+        position: relative;
+        font-weight: 600;
+        text-shadow: 0 0 5px black;
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+
+        & span {
+            text-shadow: 0 0 5px black;
+            background-color: #001156;
+            border-radius: 10px;
+            width: 100%;
+            font-weight: 700;
+            font-style: italic;
+            color: rgb(255, 255, 255);
+            font-size: 35px;
+        }
+    }
+}
+
+.clockIcon, .truckFastIcon {
     position: relative;
-    z-index: 10;
+    animation: animationIcon 0.5s ease-in-out infinite;
+}
+
+@keyframes infoRotaAnimacao {
+    0% {
+        right: 0;
+        opacity: 0;
+    }
+    
+    100% {
+        right: 20px;
+        opacity: 1;
+    }
+}
+
+@keyframes animationIcon {
+    0% {
+        left: -18px;
+    }
+
+    50% {
+        left: -16px;
+    }
+     
+    100% {
+        left: -18px;
+    }
 }
 
 /* ÍCONES */
@@ -442,7 +472,7 @@ html {
 
     .showVehicle:active {
         font-size: 17px;
-        
+
     }
 
     .remove {
@@ -450,12 +480,12 @@ html {
     }
 
     @keyframes menuApparition {
-    from {
-        left: -100%;
-    }
+        from {
+            left: -100%;
+        }
 
-    to {
-        left: 0;
+        to {
+            left: 0;
+        }
     }
-}
 }
