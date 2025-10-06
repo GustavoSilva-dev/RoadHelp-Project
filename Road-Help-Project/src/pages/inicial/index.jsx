@@ -15,12 +15,6 @@ function Inicial() {
     animacaoJS()
   }, []);
 
-  useEffect(() => {
-    function fraseAnimation() {
-      setInterval
-    }
-  })
-
   return (
     <main id="tela-de-entrada">
 
@@ -31,7 +25,7 @@ function Inicial() {
           <h2>
             <i>"Grandes cargas, grandes rotas”</i>
           </h2>
-          <h1>CADASTRE-SE</h1>
+          <h1 id="frase">CADASTRE-SE</h1>
         </div>
 
         <div className="botoes-de-entrada">

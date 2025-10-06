@@ -18,7 +18,7 @@ main {
 }
 
 html {
-    background-image: url("https://www.lance.com.br/outros-lances/wp-content/uploads/2025/04/campinas_1744933581435.jpg");
+    background-image: url("../../../public/caminhoesBackground.png");
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
@@ -34,7 +34,7 @@ body::before {
     content: "";
     height: 200vmax;
     width: 200vmax;
-    background: linear-gradient(#000000ec, #002c9acc);
+    background: linear-gradient(#000000, #01379ab0);
 }
 
 body {
