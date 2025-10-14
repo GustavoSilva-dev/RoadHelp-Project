@@ -88,8 +88,12 @@ function Home() {
             } else {
                 destinationMarker.current.setLngLat([destino.lon, destino.lat])
             }
+            const altura = localStorage.getItem('getVHeight');    
+            const largura = localStorage.getItem('getVWidth');    
+            const comprimento = localStorage.getItem('getVLength'); 
 
-            const urlRota = `https://api.tomtom.com/routing/1/calculateRoute/${origem.lat},${origem.lon}:${destino.lat},${destino.lon}/json?key=EtPSLvVg3IdQ3FeRlcZcfXOD6xnxjY8Y&routeType=fastest&travelMode=car`;
+            const urlRota = `https://api.tomtom.com/routing/1/calculateRoute/${origem.lat},${origem.lon}:${destino.lat},${destino.lon}/json?key=EtPSLvVg3IdQ3FeRlcZcfXOD6xnxjY8Y&travelMode=truck&routeType=fastest&vehicleHeight=${altura}&vehicleWidth=${largura}&vehicleLength=${comprimento}`;
+
             const respostaRota = await fetch(urlRota);
             const dadosRota = await respostaRota.json();
             const coordenadas = dadosRota.routes[0].legs[0].points.map(p => [p.longitude, p.latitude]);
@@ -123,7 +127,7 @@ function Home() {
             map.addLayer({
                 id: 'rota',
                 type: 'line',
-                source: 'rota', // Diz à camada para usar a fonte de dados 'rota'
+                source: 'rota',
                 layout: {
                     'line-join': 'round',
                     'line-cap': 'round'
@@ -265,8 +269,8 @@ function Home() {
 
             {parametros &&
                 (<div className={styles.infoRota}>
-                    <h2>Distância da Rota: <span><FontAwesomeIcon icon={faTruckFast} className={styles.truckFastIcon}/> {(parametros.lengthInMeters / 1000).toFixed(1)}km</span></h2>
-                    <h2>Tempo da Rota: <span><FontAwesomeIcon icon={faClock} className={styles.clockIcon}/> {formatarTempo(parametros.travelTimeInSeconds)}</span></h2>
+                    <h2>Distância da Rota: <span><FontAwesomeIcon icon={faTruckFast} className={styles.truckFastIcon} /> {(parametros.lengthInMeters / 1000).toFixed(1)}km</span></h2>
+                    <h2>Tempo da Rota: <span><FontAwesomeIcon icon={faClock} className={styles.clockIcon} /> {formatarTempo(parametros.travelTimeInSeconds)}</span></h2>
                 </div>)
             }
 
