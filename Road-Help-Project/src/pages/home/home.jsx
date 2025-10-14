@@ -88,9 +88,9 @@ function Home() {
             } else {
                 destinationMarker.current.setLngLat([destino.lon, destino.lat])
             }
-            const altura = localStorage.getItem('getVHeight');    
-            const largura = localStorage.getItem('getVWidth');    
-            const comprimento = localStorage.getItem('getVLength'); 
+            const altura = Number(localStorage.getItem('getVHeight'));    
+            const largura = Number(localStorage.getItem('getVWidth'));    
+            const comprimento = Number(localStorage.getItem('getVLength')); 
 
             const urlRota = `https://api.tomtom.com/routing/1/calculateRoute/${origem.lat},${origem.lon}:${destino.lat},${destino.lon}/json?key=EtPSLvVg3IdQ3FeRlcZcfXOD6xnxjY8Y&travelMode=truck&routeType=fastest&vehicleHeight=${altura}&vehicleWidth=${largura}&vehicleLength=${comprimento}`;
 
