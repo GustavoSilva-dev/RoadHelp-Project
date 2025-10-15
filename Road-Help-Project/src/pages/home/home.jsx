@@ -88,7 +88,7 @@ function Home() {
         const dadosRotaPerigosa = await responsePerigosa.json();
 
         var marcador = document.createElement('div');
-        marcador.className = 'marker-destino'; 
+        marcador.className = 'marker-destino';
 
         if (!destinationMarker.current) {
             destinationMarker.current = new maplibregl.Marker({ element: marcador })

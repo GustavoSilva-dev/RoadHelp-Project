@@ -153,15 +153,21 @@
 
 @media (max-width: 1018px) {
   .searchContainer {
-    left: 12%;
+    position: absolute;
     gap: 10px;
   }
 
+  .searchContainer:hover {
+    top: 20px;
+  }
+
   .searchBar {
+    display: flex;
     width: 225px;
   }
 
   .sugestoes {
+    display: flex;
     width: 225px;
   }
 
@@ -169,5 +175,4 @@
     padding: 8px;
     font-size: 13px;
   }
-
 }
