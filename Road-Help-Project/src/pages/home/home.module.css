@@ -8,6 +8,12 @@ html {
     width: 100vw;
 }
 
+.marker-restricao {
+    font-size: 24px; /* Torna o ícone visível */
+    cursor: pointer;
+    text-shadow: 0 0 5px rgba(0, 0, 0, 0.5); /* Melhora a visibilidade */
+}
+
 .showSearch {
     box-shadow: 0 0 30px rgba(0, 0, 0, 0.35);
     position: fixed;

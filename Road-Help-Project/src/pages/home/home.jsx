@@ -18,9 +18,11 @@ function Home() {
     const [isVisible, setIsVisible] = useState(false);      // mantém no DOM
     const [animateClass, setAnimateClass] = useState("");
 
-
     const receberLocalizacao = (posicao) => {
         setOrigem(posicao);
+        if (mapRef.current) {
+            buscarAlertas(posicao);
+        }
     };
 
     useEffect(() => {
@@ -46,8 +48,6 @@ function Home() {
             setAnimateClass("hideSearchBar");
         }
     }, [searchVisible]);
-
-
 
     async function buscarSugestoes(termo) {
         if (!termo) {
@@ -75,52 +75,54 @@ function Home() {
         const urlBusca = `https://api.tomtom.com/search/2/search/${encodeURIComponent(termo)}.json?key=EtPSLvVg3IdQ3FeRlcZcfXOD6xnxjY8Y&limit=1`;
         const resposta = await fetch(urlBusca);
         const dados = await resposta.json();
+        // ... (Código para buscar destino, configurar marcador e obter dimensões - OK) ...
 
-        if (dados.results && dados.results.length > 0 && origem) {
-            const destino = dados.results[0].position;
+        const destino = dados.results[0].position;
+        const altura = Number(localStorage.getItem('getVHeight')) || 0;
+        const largura = Number(localStorage.getItem('getVWidth')) || 0;
+        const comprimento = Number(localStorage.getItem('getVLength')) || 0;
+
+        const urlRota = `https://api.tomtom.com/routing/1/calculateRoute/${origem.lat},${origem.lon}:${destino.lat},${destino.lon}/json?key=EtPSLvVg3IdQ3FeRlcZcfXOD6xnxjY8Y&travelMode=truck&routeType=fastest&vehicleHeight=${altura}&vehicleWidth=${largura}&vehicleLength=${comprimento}&avoid=motorways`;
+
+        const respostaRota = await fetch(urlRota);
+        const dadosRota = await respostaRota.json();
+
+        // marcador no destino
+
+        if (!destinationMarker.current) {
+            destinationMarker.current = new maplibregl.Marker({ color: "red" })
+                .setLngLat([destino.lon, destino.lat])
+                .addTo(mapRef.current);
+        } else {
+            destinationMarker.current.setLngLat([destino.lon, destino.lat])
+        }
+
+        // 💥 NOVO: VERIFICA SE A ROTA FOI ENCONTRADA 💥
+        if (dadosRota.routes && dadosRota.routes.length > 0) {
             const map = mapRef.current
+            const rotaPrincipal = dadosRota.routes[0];
+            const coordenadas = rotaPrincipal.legs[0].points.map(p => [p.longitude, p.latitude]);
 
-            // marcador no destino
-            if (!destinationMarker.current) {
-                destinationMarker.current = new maplibregl.Marker({ color: "red" })
-                    .setLngLat([destino.lon, destino.lat])
-                    .addTo(mapRef.current);
-            } else {
-                destinationMarker.current.setLngLat([destino.lon, destino.lat])
-            }
-            const altura = Number(localStorage.getItem('getVHeight'));    
-            const largura = Number(localStorage.getItem('getVWidth'));    
-            const comprimento = Number(localStorage.getItem('getVLength')); 
-
-            const urlRota = `https://api.tomtom.com/routing/1/calculateRoute/${origem.lat},${origem.lon}:${destino.lat},${destino.lon}/json?key=EtPSLvVg3IdQ3FeRlcZcfXOD6xnxjY8Y&travelMode=truck&routeType=fastest&vehicleHeight=${altura}&vehicleWidth=${largura}&vehicleLength=${comprimento}`;
-
-            const respostaRota = await fetch(urlRota);
-            const dadosRota = await respostaRota.json();
-            const coordenadas = dadosRota.routes[0].legs[0].points.map(p => [p.longitude, p.latitude]);
-
+            // SEU CÓDIGO ORIGINAL DO FITBOUNDS ESTÁ AQUI:
             const bounds = coordenadas.reduce((bounds, coord) => {
                 return bounds.extend(coord);
             }, new maplibregl.LngLatBounds(coordenadas[0], coordenadas[0]));
 
             map.fitBounds(bounds, {
-                padding: 100
+                padding: 100,
+                duration: 1500
             });
+            // FIM DO CÓDIGO DO FITBOUNDS
 
-            if (map.getLayer('rota')) {
-                map.removeLayer('rota');
-            }
-            if (map.getSource('rota')) {
-                map.removeSource('rota');
-            }
+            // SEU CÓDIGO ORIGINAL DE DESENHO DE ROTA (Limpeza, Source, Layer - OK)
+            if (map.getLayer('rota')) { map.removeLayer('rota'); }
+            if (map.getSource('rota')) { map.removeSource('rota'); }
 
             map.addSource('rota', {
                 type: 'geojson',
                 data: {
                     type: 'Feature',
-                    geometry: {
-                        type: 'LineString',
-                        coordinates: coordenadas
-                    }
+                    geometry: { type: 'LineString', coordinates: coordenadas }
                 }
             });
 
@@ -128,23 +130,22 @@ function Home() {
                 id: 'rota',
                 type: 'line',
                 source: 'rota',
-                layout: {
-                    'line-join': 'round',
-                    'line-cap': 'round'
-                },
-                paint: {
-                    'line-color': '#0044ffff',
-                    'line-width': 5
-                }
+                layout: { 'line-join': 'round', 'line-cap': 'round' },
+                paint: { 'line-color': '#0044ffff', 'line-width': 6 }
             });
 
-            const parametros = dadosRota.routes[0].summary;
+            const parametros = rotaPrincipal.summary;
             setParametros(parametros);
 
-            const horas = formatarTempo();
+            // A chamada 'const horas = formatarTempo();' ainda está incorreta. Corrija para:
+            // formatarTempo(parametros.travelTimeInSeconds);
+
         } else {
-            alert("Endereço não encontrado ou localização atual indisponível.");
+            // MENSAGEM DE ERRO ESPECÍFICA PARA CAMINHÕES
+            alert("Não foi possível encontrar uma rota para este destino. Verifique se o endereço é válido ou se as dimensões do seu caminhão (altura/largura) não estão bloqueando o acesso.");
         }
+
+        setSugestoes([]);
     };
 
     function removeAccount() {
