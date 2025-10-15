@@ -1,18 +1,12 @@
-/* Container que envolve barra + sugestões */
 .searchContainer {
   position: fixed;
-  /* fixado em relação à tela */
   top: 4vh;
-  /* mesma altura da lupa */
   left: 18%;
-  /* ajusta horizontalmente */
   display: flex;
   gap: 5px;
   z-index: 10;
-  /* acima do mapa */
 }
 
-/* Barra de pesquisa */
 .searchBar {
   box-shadow: 0 0 30px rgba(0, 0, 0, 0.35);
   margin-left: -40px;
@@ -28,21 +22,18 @@
   z-index: 1;
 }
 
-/* Ao abrir */
 .showSearchBar {
   display: flex;
   opacity: 1;
   transform: translateX(0);
 }
 
-/* Ao fechar */
 .hideSearchBar {
   display: flex;
   opacity: 0;
   transform: translateX(-20px);
 }
 
-/* Sugestões */
 .sugestoes {
   left: -40px;
   position: absolute;
@@ -112,4 +103,62 @@
   cursor: pointer;
   transition: 0.2s;
   transform: scale(1.05);
+}
+
+.marker-origem {
+  background-image: url("../../../public/silhueta-de-caminhao-de-entrega-definitivo.png");
+  filter: drop-shadow(0 0 20px rgb(255, 255, 255));
+  background-size: cover;
+  width: 40px;
+  height: 40px;
+  animation: markerOrigem 1s linear infinite;
+}
+
+.marker-destino {
+  background-image: url("../../../public/bandeira-definitivo.png");
+  filter: drop-shadow(0 0 20px rgb(255, 255, 255));
+  background-size: cover;
+  width: 35px;
+  height: 35px;
+  animation: markerDestino 1s linear infinite;
+}
+
+@keyframes markerOrigem {
+  0% {
+    top: 0;
+  }
+
+  50% {
+    top: -5px;
+  }
+
+  100% {
+    top: 0;
+  }
+}
+
+@keyframes markerDestino {
+  0% {
+    top: 0;
+  }
+
+  50% {
+    top: -3px;
+  }
+
+  100% {
+    top: 0;
+  }
+}
+
+@media (max-width: 1018px) {
+  .searchContainer {
+    left: 12%;
+    gap: 10px;
+  }
+
+  .searchBar {
+    width: 225px;
+  }
+
 }

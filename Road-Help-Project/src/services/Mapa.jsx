@@ -6,6 +6,9 @@ export default function Mapa({ mapRef, enviarLocalizacao }) {
   const markerRef = useRef(null)
 
   useEffect(() => {
+    const marcador = document.createElement('div');
+    marcador.className = 'marker-origem';
+
     if (navigator.geolocation) {
       let c = 0
       navigator.geolocation.watchPosition(
@@ -25,7 +28,7 @@ export default function Mapa({ mapRef, enviarLocalizacao }) {
           }
 
           if (!markerRef.current) {
-            markerRef.current = new maplibregl.Marker()
+            markerRef.current = new maplibregl.Marker({ element: marcador })
               .setLngLat([longitude, latitude])
               .addTo(mapRef.current);
           } else {
@@ -60,8 +63,6 @@ export default function Mapa({ mapRef, enviarLocalizacao }) {
 
     mapRef.current = map;
   }, []);
-
-
 
   return <div id="map" style={{ width: "100%", height: "100vh" }} />;
 }
