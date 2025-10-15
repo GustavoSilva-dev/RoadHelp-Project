@@ -161,4 +161,13 @@
     width: 225px;
   }
 
+  .sugestoes {
+    width: 225px;
+  }
+
+  .sugestoes li {
+    padding: 8px;
+    font-size: 13px;
+  }
+
 }
