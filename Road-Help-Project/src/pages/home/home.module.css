@@ -496,6 +496,7 @@ html {
     }
 
     .showMenu {
+        margin-top: 11vh;
         margin-right: 5vw;
         height: 70px;
         width: 70px;
@@ -517,7 +518,7 @@ html {
         height: 70px;
         width: 70px;
         align-self: flex-end;
-        margin-top: 90px;
+        margin-top: 20vh;
     }
 
     .remove {

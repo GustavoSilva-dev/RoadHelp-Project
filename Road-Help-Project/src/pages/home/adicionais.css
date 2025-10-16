@@ -155,6 +155,7 @@
   .searchContainer {
     position: absolute;
     gap: 10px;
+    top: 3vh;
   }
 
   .searchContainer:hover {
@@ -163,7 +164,7 @@
 
   .searchBar {
     display: flex;
-    width: 225px;
+    width: 285px;
   }
 
   .sugestoes {
