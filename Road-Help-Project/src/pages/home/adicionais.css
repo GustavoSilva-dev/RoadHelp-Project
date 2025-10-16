@@ -169,7 +169,8 @@
 
   .sugestoes {
     display: flex;
-    width: 225px;
+    flex-direction: column;
+    width: 285px;
   }
 
   .sugestoes li {

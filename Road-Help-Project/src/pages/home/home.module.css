@@ -109,8 +109,8 @@ html {
 }
 
 .UserName {
-    border-top: 1.5px solid blue;
-    border-bottom: 1.5px solid blue;
+    border-top: 2px solid #004aad;
+    border-bottom: 2px solid #004aad;
     position: relative;
     top: 80px;
     justify-content: center;
@@ -133,7 +133,7 @@ html {
     cursor: pointer;
     width: 100%;
     background-color: #fff;
-    top: 70%;
+    top: 93%;
     font-size: 20px;
     height: 40px;
     color: red;
@@ -164,8 +164,9 @@ html {
     width: 100%;
     height: 40px;
     border: none;
-    background-color: rgb(209, 209, 209);
-    color: black;
+    background-color: #004aad;
+    color: #fff;
+    
     font-weight: 600;
     font-size: 16px;
     transition: 0.5s;
@@ -185,10 +186,11 @@ html {
     position: relative;
     z-index: 1;
     height: 175px;
-    background-color: #eaeaea;
+    
     gap: 15px;
     top: 100px;
     animation: vehicleAnimation 0.5s ease-in-out;
+    border-bottom: 2px solid #004aad;
 
     & h2 {
         display: flex;
@@ -197,8 +199,9 @@ html {
         gap: 10px;
         font-family: "League Spartan", sans-serif;
         color: black;
-        font-size: 25px;
+        font-size: 30px;
         font-style: italic;
+        
     }
 
     & p {
@@ -211,7 +214,7 @@ html {
         font-style: italic;
 
         & span {
-            color: rgb(0, 67, 109);
+            color: #004aad;
             font-size: 21px;
             font-family: "League Spartan", sans-serif;
         }
@@ -496,7 +499,7 @@ html {
     }
 
     .showMenu {
-        margin-top: 11vh;
+        margin-top: 10.5vh;
         margin-right: 5vw;
         height: 70px;
         width: 70px;
