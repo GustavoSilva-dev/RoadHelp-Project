@@ -3,14 +3,26 @@ import jwt from 'jsonwebtoken'
 import dotenv from 'dotenv'
 import bcrypt from 'bcrypt'
 import cors from 'cors'
+import fs from 'fs';
+import https from 'https';
+
 import { PrismaClient } from '@prisma/client'
 dotenv.config()
 
 const prisma = new PrismaClient();
 const app = express();
 
+const certPath = '../Road-Help-Project/';
+
+const options = {
+  key: fs.readFileSync(certPath + 'localhost+1-key.pem'),
+  cert: fs.readFileSync(certPath + 'localhost+1.pem')
+};
+
+const PORT_BACKEND = 3050;
+
 app.use(express.json());
-app.use(cors('http://localhost:5173'))
+app.use(cors('https://localhost:5173'))
 
 
 // Registrar usuários
@@ -143,4 +155,6 @@ app.post('/login', async (req, res) => {
     }
 })
 
-app.listen(3050);
+https.createServer(options, app).listen(PORT_BACKEND, () => {
+  console.log(`Backend HTTPS rodando em https://localhost:${PORT_BACKEND}`);
+});
