@@ -162,7 +162,7 @@ function Home() {
 
             const parametros = rotaPrincipal.summary;
             setParametros(parametros);
-
+            document.getElementById("iniciarRota").style.display = "flex";
         } else {
             alert("Não foi possível encontrar uma rota para este destino. Verifique se o endereço é válido ou se as dimensões do seu caminhão (altura/largura) não estão bloqueando o acesso.");
         }
@@ -295,8 +295,10 @@ function Home() {
                 (<div className={styles.infoRota}>
                     <h2>Distância da Rota: <span><FontAwesomeIcon icon={faTruckFast} className={styles.truckFastIcon} /> {(parametros.lengthInMeters / 1000).toFixed(1)}km</span></h2>
                     <h2>Tempo da Rota: <span><FontAwesomeIcon icon={faClock} className={styles.clockIcon} /> {formatarTempo(parametros.travelTimeInSeconds)}</span></h2>
-                </div>)
+                </div>)   
             }
+
+            <button id="iniciarRota" className={styles.iniciarRota}>INICIAR ROTA</button>
 
             <Mapa mapRef={mapRef} enviarLocalizacao={receberLocalizacao} />
         </div>

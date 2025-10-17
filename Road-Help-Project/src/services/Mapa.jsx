@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import maplibregl from "maplibre-gl";
+import styles from "../pages/home/home.module.css"
 import "maplibre-gl/dist/maplibre-gl.css";
 
 export default function Mapa({ mapRef, enviarLocalizacao }) {
@@ -57,14 +58,13 @@ export default function Mapa({ mapRef, enviarLocalizacao }) {
       container: "map",
       style: `https://api.tomtom.com/style/2/custom/style/dG9tdG9tQEBAVG8zc09NOGFkS2lDVVhGSDv9AEVyK5FBGqZjLdrEMKkr/drafts/0.json?key=EtPSLvVg3IdQ3FeRlcZcfXOD6xnxjY8Y`,
       center: [-46.6333, -23.5505],
-      zoom: 12,
-      pitch: 60
+      zoom: 12
     });
 
     mapRef.current = map;
   }, []);
 
-  return <div id="map" style={{ width: "100%", height: "100vh" }} />;
+  return <div id="map" className={styles.map}/>;
 }
 
 

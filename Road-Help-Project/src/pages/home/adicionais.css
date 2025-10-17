@@ -9,8 +9,8 @@
 
 .searchBar {
   box-shadow: 0 0 30px rgba(0, 0, 0, 0.35);
-  margin-left: -40px;
   width: 650px;
+  margin-left: -20px;
   padding: 10px 15px;
   border-radius: 12px;
   border: 2px solid #004aad;
@@ -35,7 +35,7 @@
 }
 
 .sugestoes {
-  left: -40px;
+  left: -20px;
   position: absolute;
   top: 50px;
   width: 650px;
@@ -152,8 +152,46 @@
 }
 
 @media (max-width: 1018px) {
+  .showSearchBar {
+    display: flex;
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .hideSearchBar {
+    display: flex;
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+
+  .showEnvbutton {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .hideEnvbutton {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+
+  .showSugestoes {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .hideSugestoes {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+
+  .envButton {
+    height: 55px;
+    width: 55px;
+  }
+
   .searchContainer {
     position: absolute;
+    left: 50px;
     gap: 10px;
     top: 3vh;
   }
@@ -164,13 +202,14 @@
 
   .searchBar {
     display: flex;
-    width: 285px;
+    width: 70vw;
   }
 
   .sugestoes {
     display: flex;
     flex-direction: column;
-    width: 285px;
+    width: 70vw;
+    margin-top: -3px;
   }
 
   .sugestoes li {

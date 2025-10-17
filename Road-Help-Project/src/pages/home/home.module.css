@@ -1,18 +1,47 @@
+/* REGRAS GLOBAIS - RESOLVE OVERFLOW HORIZONTAL EM 99% DOS CASOS */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    /* Adicione overflow-x: hidden; ao body ou html se o problema persistir, 
+       mas prefira corrigir os elementos que estão causando o overflow. */
+}
+
 /* CONFIGURAÇÕES GERAIS */
 html {
     scroll-behavior: auto;
 }
 
+body,
+html {
+    overflow-x: hidden;
+}
+
+.map {
+    z-index: 0;
+    position: fixed;
+    /* Tira do fluxo e fixa na tela */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100vw;
+    /* 100% da largura da viewport */
+    height: 100vh;
+    /* 100% da altura da viewport */
+    /* ... */
+}
+
 .patternContainer {
     height: 100vh;
     width: 100vw;
+    align-self: center;
 }
 
 .showSearch {
     box-shadow: 0 0 30px rgba(0, 0, 0, 0.35);
     position: fixed;
     margin-top: 2.3vh;
-    margin-left: 10vw;
+    margin-left: 150px;
     z-index: 1;
     border: 3px solid white;
     border-radius: 100%;
@@ -61,25 +90,11 @@ html {
     }
 }
 
-.map {
-    z-index: 0;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 100vw;
-    height: 100vh;
-    background: linear-gradient(rgb(0, 99, 212), rgb(1, 21, 126));
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
 .showMenu {
     box-shadow: 0 0 30px rgba(0, 0, 0, 0.35);
     position: fixed;
-    margin-top: 2vh;
-    margin-left: 2vw;
+    margin-top: 20px;
+    margin-left: 20px;
     z-index: 1;
     border: 3px solid white;
     border-radius: 100%;
@@ -166,7 +181,7 @@ html {
     border: none;
     background-color: #004aad;
     color: #fff;
-    
+
     font-weight: 600;
     font-size: 16px;
     transition: 0.5s;
@@ -186,7 +201,7 @@ html {
     position: relative;
     z-index: 1;
     height: 175px;
-    
+
     gap: 15px;
     top: 100px;
     animation: vehicleAnimation 0.5s ease-in-out;
@@ -201,7 +216,7 @@ html {
         color: black;
         font-size: 30px;
         font-style: italic;
-        
+
     }
 
     & p {
@@ -229,7 +244,7 @@ html {
 
 .infoRota {
     position: fixed;
-    bottom: 45px;
+    bottom: 95px;
     right: 20px;
     background: linear-gradient(rgb(0, 0, 120), rgb(0, 34, 255));
     color: white;
@@ -256,9 +271,29 @@ html {
             font-weight: 700;
             font-style: italic;
             color: rgb(255, 255, 255);
-            font-size: 35px;
+            font-size: 30px;
         }
     }
+}
+
+.iniciarRota {
+    position: fixed;
+    display: none;
+    font-size: 18px;
+    font-weight: 600;
+    bottom: 40px;
+    right: 20px;
+    width: 270px;
+    height: 45px;
+    border-radius: 10px;
+    border: none;
+    z-index: 1;
+    background-color: #004aad;
+    animation: iniciarRotaAnimacao 3s linear infinite;
+    cursor: pointer;
+    transition: 0.2s;
+    align-items: center;
+    justify-content: center;
 }
 
 .clockIcon,
@@ -276,6 +311,20 @@ html {
     100% {
         right: 20px;
         opacity: 1;
+    }
+}
+
+@keyframes iniciarRotaAnimacao {
+    0% {
+        background-color: #005acf;
+    }
+
+    50% {
+        background-color: #001e98;
+    }
+
+    100% {
+        background-color: #005acf;
     }
 }
 
@@ -417,14 +466,14 @@ html {
     }
 
     .infoRota {
-        padding-top: 14px;
-        padding-right: 0;
-        border-radius: 0;
-        padding-bottom: 18px;
-        max-width: 100%;
         width: 100%;
-        right: 0;   
-        bottom: 25px;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        padding: 0;
+        padding-bottom: 20px;
+        padding-top: 20px;
+        border-radius: 0;
         z-index: 1;
         display: flex;
         flex-direction: column;
@@ -433,7 +482,7 @@ html {
     }
 
     .infoRota h2 {
-        width: 82%;
+        width: 80%;
         text-align: left;
         background-color: none;
     }
@@ -442,6 +491,14 @@ html {
         text-align: center;
     }
 
+    .iniciarRota {
+        width: 100%;
+        left: 0;
+        right: 0;
+        transform: none;
+        border-radius: 0px;
+        bottom: 200px;
+    }
 
     @keyframes animationIcon {
         0% {
@@ -499,10 +556,10 @@ html {
     }
 
     .showMenu {
-        margin-top: 10.5vh;
-        margin-right: 5vw;
-        height: 70px;
-        width: 70px;
+        margin-top: 100px;
+        margin-right: 20px;
+        height: 65px;
+        width: 65px;
         align-self: flex-end;
     }
 
@@ -517,11 +574,11 @@ html {
     }
 
     .showSearch {
-        margin-right: 5vw;
-        height: 70px;
-        width: 70px;
+        margin-right: 20px;
+        height: 65px;
+        width: 65px;
         align-self: flex-end;
-        margin-top: 20vh;
+        margin-top: 170px;
     }
 
     .remove {
