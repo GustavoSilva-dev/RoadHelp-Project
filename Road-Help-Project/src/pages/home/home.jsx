@@ -14,8 +14,9 @@ function Home() {
     const [sugestoes, setSugestoes] = useState([]);
     const [origem, setOrigem] = useState(null);
     const [parametros, setParametros] = useState(null);
-    const [searchVisible, setSearchVisible] = useState(false); // controla a barra de pesquisa
-    const [isVisible, setIsVisible] = useState(false);      // mantém no DOM
+    const [rotaCalculada, setRotaCalculada] = useState(false);
+    const [searchVisible, setSearchVisible] = useState(false); 
+    const [isVisible, setIsVisible] = useState(false);  
     const [animateClass, setAnimateClass] = useState("");
 
     const receberLocalizacao = (posicao) => {
@@ -110,10 +111,18 @@ function Home() {
                 }
             };
 
-            if (map.getLayer('rota-perigosa')) { map.removeLayer('rota-perigosa'); }
-            if (map.getSource('rota-perigosa')) { map.removeSource('rota-perigosa'); }
+            if (map.getLayer('rota-perigosa')) {
+                map.removeLayer('rota-perigosa');
+            }
 
-            map.addSource('rota-perigosa', { type: 'geojson', data: geoJSONPerigosa });
+            if (map.getSource('rota-perigosa')) {
+                map.removeSource('rota-perigosa');
+            }
+
+            map.addSource('rota-perigosa', {
+                type: 'geojson',
+                data: geoJSONPerigosa
+            });
 
             map.addLayer({
                 id: 'rota-perigosa',
@@ -138,7 +147,8 @@ function Home() {
 
             map.fitBounds(bounds, {
                 padding: 100,
-                duration: 1500
+                duration: 1500,
+                pitch: 0
             });
 
             if (map.getLayer('rota')) { map.removeLayer('rota'); }
@@ -162,13 +172,44 @@ function Home() {
 
             const parametros = rotaPrincipal.summary;
             setParametros(parametros);
-            document.getElementById("iniciarRota").style.display = "flex";
+            setRotaCalculada(true);
         } else {
             alert("Não foi possível encontrar uma rota para este destino. Verifique se o endereço é válido ou se as dimensões do seu caminhão (altura/largura) não estão bloqueando o acesso.");
         }
 
         setSugestoes([]);
     };
+
+    const iniciarRota = () => {
+        if (origem && origem.lat && origem.lon) {
+            inicializarRotaFunction(origem);
+        } else {
+            alert("Localização do motorista não obtida.")
+        }
+    };
+
+    const inicializarRotaFunction = (localizacaoAtual) => {
+        if (!mapRef.current) return;
+        const map = mapRef.current;
+
+        if (map.getLayer('rota-perigosa')) {
+            map.removeLayer('rota-perigosa');
+        }
+        
+        if (map.getSource('rota-perigosa')) {
+            map.removeSource('rota-perigosa');
+        }
+
+        map.flyTo({
+            center: [localizacaoAtual.lon, localizacaoAtual.lat],
+            zoom: 18,
+            pitch: 60, 
+            duration: 2500
+        });
+
+        setParametros(false);
+        setRotaCalculada(false);
+    }
 
     function removeAccount() {
         localStorage.removeItem("getToken");
@@ -292,13 +333,15 @@ function Home() {
             </div>
 
             {parametros &&
-                (<div className={styles.infoRota}>
+                (<div id="infoRota" className={styles.infoRota}>
                     <h2>Distância da Rota: <span><FontAwesomeIcon icon={faTruckFast} className={styles.truckFastIcon} /> {(parametros.lengthInMeters / 1000).toFixed(1)}km</span></h2>
                     <h2>Tempo da Rota: <span><FontAwesomeIcon icon={faClock} className={styles.clockIcon} /> {formatarTempo(parametros.travelTimeInSeconds)}</span></h2>
-                </div>)   
+                </div>)
             }
 
-            <button id="iniciarRota" className={styles.iniciarRota}>INICIAR ROTA</button>
+            {rotaCalculada &&
+                (<button id="iniciarRota" className={styles.iniciarRota} onClick={iniciarRota}>INICIAR ROTA</button>)
+            }
 
             <Mapa mapRef={mapRef} enviarLocalizacao={receberLocalizacao} />
         </div>

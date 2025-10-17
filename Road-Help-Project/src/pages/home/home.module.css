@@ -1,10 +1,7 @@
-/* REGRAS GLOBAIS - RESOLVE OVERFLOW HORIZONTAL EM 99% DOS CASOS */
 *,
 *::before,
 *::after {
     box-sizing: border-box;
-    /* Adicione overflow-x: hidden; ao body ou html se o problema persistir, 
-       mas prefira corrigir os elementos que estão causando o overflow. */
 }
 
 /* CONFIGURAÇÕES GERAIS */
@@ -20,15 +17,11 @@ html {
 .map {
     z-index: 0;
     position: fixed;
-    /* Tira do fluxo e fixa na tela */
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     width: 100vw;
-    /* 100% da largura da viewport */
     height: 100vh;
-    /* 100% da altura da viewport */
-    /* ... */
 }
 
 .patternContainer {
@@ -148,7 +141,7 @@ html {
     cursor: pointer;
     width: 100%;
     background-color: #fff;
-    top: 93%;
+    top: 85%;
     font-size: 20px;
     height: 40px;
     color: red;
@@ -254,6 +247,7 @@ html {
     text-align: center;
     box-shadow: 0 0 80px rgba(0, 0, 0, 0.231);
     animation: infoRotaAnimacao 0.5s ease-in-out;
+    flex-direction: column;
 
     & h2 {
         position: relative;
@@ -278,7 +272,6 @@ html {
 
 .iniciarRota {
     position: fixed;
-    display: none;
     font-size: 18px;
     font-weight: 600;
     bottom: 40px;
@@ -289,7 +282,7 @@ html {
     border: none;
     z-index: 1;
     background-color: #004aad;
-    animation: iniciarRotaAnimacao 3s linear infinite;
+    animation: iniciarRotaAnimacao 3s linear infinite, iniciarRotaAparicao 0.5s ease-in-out;
     cursor: pointer;
     transition: 0.2s;
     align-items: center;
@@ -303,6 +296,18 @@ html {
 }
 
 @keyframes infoRotaAnimacao {
+    0% {
+        right: 0;
+        opacity: 0;
+    }
+
+    100% {
+        right: 20px;
+        opacity: 1;
+    }
+}
+
+@keyframes iniciarRotaAparicao {
     0% {
         right: 0;
         opacity: 0;
@@ -460,9 +465,10 @@ html {
 
 @media (max-width: 1018px) {
     .welcome {
-        font-size: 20px;
+        font-size: 25px;
         text-align: center;
         width: 250px;
+        text-shadow: 0 3px black, 0 0 30px black;
     }
 
     .infoRota {
@@ -551,13 +557,9 @@ html {
         transition: 0.3s;
     }
 
-    .welcome {
-        margin-right: 80px;
-    }
-
     .showMenu {
-        margin-top: 100px;
-        margin-right: 20px;
+        margin-top: 80px;
+        margin-right: 15px;
         height: 65px;
         width: 65px;
         align-self: flex-end;
@@ -574,11 +576,11 @@ html {
     }
 
     .showSearch {
-        margin-right: 20px;
+        margin-right: 15px;
         height: 65px;
         width: 65px;
         align-self: flex-end;
-        margin-top: 170px;
+        margin-top: 150px;
     }
 
     .remove {
@@ -592,6 +594,30 @@ html {
 
         to {
             left: 0;
+        }
+    }
+
+    @keyframes infoRotaAnimacao {
+        0% {
+            bottom: -20px;
+            opacity: 0;
+        }
+
+        100% {
+            bottom: 0;
+            opacity: 1;
+        }
+    }
+
+    @keyframes iniciarRotaAparicao {
+        0% {
+            bottom: 180px;
+            opacity: 0;
+        }
+
+        100% {
+            bottom: 200px;
+            opacity: 1;
         }
     }
 }
