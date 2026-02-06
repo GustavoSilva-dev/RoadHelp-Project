@@ -12,17 +12,10 @@ dotenv.config()
 const prisma = new PrismaClient();
 const app = express();
 
-const certPath = '../Road-Help-Project/';
-
-const options = {
-  key: fs.readFileSync(certPath + 'localhost+3-key.pem'),
-  cert: fs.readFileSync(certPath + 'localhost+3.pem')
-};
-
 const PORT_BACKEND = 3050;
 
 app.use(express.json());
-app.use(cors('https://10.180.29.99:5173'))
+app.use(cors('http://localhost:5173'))
 
 
 // Registrar usuários
@@ -155,6 +148,4 @@ app.post('/login', async (req, res) => {
     }
 })
 
-https.createServer(options, app).listen(PORT_BACKEND, () => {
-  console.log(`Backend HTTPS rodando em https://localhost:${PORT_BACKEND}`);
-});
+app.listen(3050);
