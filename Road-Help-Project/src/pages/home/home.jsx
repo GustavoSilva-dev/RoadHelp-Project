@@ -79,8 +79,9 @@ function Home() {
         const altura = Number(localStorage.getItem('getVHeight')) || 0;
         const largura = Number(localStorage.getItem('getVWidth')) || 0;
         const comprimento = Number(localStorage.getItem('getVLength')) || 0;
+        const pesoPadrao = 15000;
 
-        const urlRota = `https://api.tomtom.com/routing/1/calculateRoute/${origem.lat},${origem.lon}:${destino.lat},${destino.lon}/json?key=EtPSLvVg3IdQ3FeRlcZcfXOD6xnxjY8Y&travelMode=truck&routeType=fastest&vehicleHeight=${altura}&vehicleWidth=${largura}&vehicleLength=${comprimento}&avoid=motorways`;
+        const urlRota = `https://api.tomtom.com/routing/1/calculateRoute/${origem.lat},${origem.lon}:${destino.lat},${destino.lon}/json?key=EtPSLvVg3IdQ3FeRlcZcfXOD6xnxjY8Y&travelMode=truck&routeType=fastest&vehicleHeight=${altura}&vehicleWidth=${largura}&vehicleLength=${comprimento}&departAt=now&traffic=true&vehicleWeight=${pesoPadrao}&vehicleCommercial=true`;
         const respostaRota = await fetch(urlRota);
         const dadosRota = await respostaRota.json();
 
