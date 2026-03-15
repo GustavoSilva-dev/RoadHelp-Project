@@ -4,7 +4,7 @@
   "description": "Roteirização inteligente para camiões com foco em restrições urbanas.",
   "icons": [
     {
-      "src": "/Road-Help-Logo-Icon.ico",
+      "src": "/MobileRoadHelp.ico",
       "sizes": "64x64 32x32",
       "type": "image/x-icon"
     },
