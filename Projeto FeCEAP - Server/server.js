@@ -148,4 +148,5 @@ app.post('/login', async (req, res) => {
     }
 })
 
-app.listen(3050);
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log(`Rodando na porta ${PORT}`));
