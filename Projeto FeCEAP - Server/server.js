@@ -15,7 +15,7 @@ const app = express();
 const PORT_BACKEND = 3050;
 
 app.use(express.json());
-app.use(cors('http://localhost:5173'))
+app.use(cors('https://roadhelp-project-pwa.vercel.app'))
 
 
 // Registrar usuários
